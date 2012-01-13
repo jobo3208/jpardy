@@ -1,0 +1,8 @@
+* {margin: 0; padding: 0;}
+html {height: 100%;}
+body {height: 100%;}
+#container {position: absolute; bottom: 150px; left: 0px; top: 0px; width: 100%;}
+#floater	{float:left; height:50%; margin-bottom:-90px;}
+#content	{clear:both; height:180px; position:relative; width: 200px; margin: 0 auto;}
+#footer {position: absolute; bottom: 0px; left: 0px; height:150px; width: 100%; background: #cc3300;}
+#footer #footer_image {position: absolute; bottom: 5px; right: 15px; width: 350px; height: 131px; background:url(../images/jpardy_white_350x131.png);}
