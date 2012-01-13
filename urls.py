@@ -15,6 +15,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/$', login, {'template_name': 'apps/jpardy/login.html'}),
+    url(r'^$', 'apps.jpardy.views.home'),
     url(r'^home/$', 'apps.jpardy.views.home'),
+
+    url(r'^login/$', login, {'template_name': 'apps/jpardy/login.html'}),
+    url(r'^logout/$', logout, {'template_name': 'apps/jpardy/logout.html'}),
 )
