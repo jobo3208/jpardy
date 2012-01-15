@@ -7,6 +7,13 @@ class Category(models.Model):
     user = models.ForeignKey(User, editable=False)
     played = models.BooleanField(default=False, editable=False)
 
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = "categories"
+
 class Question(models.Model):
     question = models.TextField(max_length=200)
     answer = models.TextField(max_length=200)
@@ -21,3 +28,9 @@ class Question(models.Model):
         (500, '500'),
     )
     value = models.PositiveSmallIntegerField(choices=VALUE_CHOICES)
+
+    def __unicode__(self):
+        return "%s: %d: %s" % (self.category.name, self.value, self.question)
+
+    class Meta:
+        ordering = ['category__name', 'value']
