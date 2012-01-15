@@ -18,6 +18,6 @@ urlpatterns = patterns('',
     url(r'^$', 'apps.jpardy.views.home'),
     url(r'^home/$', 'apps.jpardy.views.home'),
 
-    url(r'^login/$', login, {'template_name': 'apps/jpardy/login.html'}),
-    url(r'^logout/$', logout, {'template_name': 'apps/jpardy/logout.html'}),
+    url(r'^login/$', login),
+    url(r'^logout/$', logout),
 )
