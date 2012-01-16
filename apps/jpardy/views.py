@@ -14,6 +14,14 @@ def home(request):
                               context_instance=RequestContext(request))
 
 @login_required
+def manage(request):
+    categories = Category.objects.filter(user=request.user)
+
+    return render_to_response('manage.html',
+                              {'categories': categories},
+                              context_instance=RequestContext(request))
+
+@login_required
 def edit(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
