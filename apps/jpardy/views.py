@@ -37,5 +37,6 @@ def edit(request, category_id):
 
     return render_to_response(
                         "edit.html", 
-                        {"formset": formset,}, 
-                        context_instance=RequestContext(request))
+                        {"formset": formset,
+                         "category": category,}, 
+                         context_instance=RequestContext(request))

@@ -3,6 +3,7 @@
 {% block title %}jpardy -- edit category{% endblock %}
 
 {% block main %}
+<h2>{{ category.name }}</h2>
 {{ formset.non_form_errors }}
 <form method="post" action="">
 <table>
@@ -19,8 +20,11 @@
         <tr>
         <td>{{ form.answer.label }}</td><td>{{ form.answer }}</td>
         </tr>
+        {% if not forloop.last %}
+            <tr><td colspan="2"><hr /></td></tr>
+        {% endif %}
     {% endfor %}
-    <tr><td><input type="submit" value="submit"></input></td></tr>
+    <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Save"></input></td></tr>
 </table>
 </form>
 {% endblock %}
