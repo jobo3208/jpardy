@@ -52,3 +52,7 @@
 	height: 131px;
     background: url(../images/jpardy_white_350x131.png);
 }
+
+.underline {
+    border-bottom: 1px solid black;
+}
