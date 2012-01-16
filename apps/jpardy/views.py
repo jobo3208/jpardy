@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 
@@ -32,6 +32,7 @@ def edit(request, category_id):
         formset = CategoryFormSet(request.POST, instance=category)
         if formset.is_valid():
             formset.save()
+            return redirect('/home/')
     else:
         formset = CategoryFormSet(instance=category)
 

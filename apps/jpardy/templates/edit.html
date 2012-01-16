@@ -3,7 +3,7 @@
 {% block title %}jpardy -- edit category{% endblock %}
 
 {% block content %}
-<h2>{{ category.name }}</h2>
+<h2 style="border-bottom: 1px solid black;">Edit Category: {{ category.name }}</h2>
 {{ formset.non_form_errors }}
 <form method="post" action="">
 <table style="margin: 0 auto">
