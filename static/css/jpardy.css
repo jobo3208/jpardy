@@ -1,8 +1,41 @@
-* {margin: 0; padding: 0;}
-html {height: 100%;}
-body {height: 100%;}
-#container {position: absolute; bottom: 150px; left: 0px; top: 0px; width: 100%;}
-#floater	{float:left; height:50%; margin-bottom:-90px;}
-#content	{clear:both; height:180px; position:relative; width: 200px; margin: 0 auto;}
-#footer {position: absolute; bottom: 0px; left: 0px; height:150px; width: 100%; background: #cc3300;}
-#footer #footer_image {position: absolute; bottom: 5px; right: 15px; width: 350px; height: 131px; background:url(../images/jpardy_white_350x131.png);}
+#main {
+	position: absolute;
+	left: 0px;
+	bottom: 150px;
+	width: 100%;
+	overflow-y: auto;
+}
+
+#footer {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 150px;
+	background: #cc3300;
+	font-family: sans-serif;
+}
+
+#footer #status {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	color: #ffffff;
+	font-size: small;
+}
+
+#footer #login {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	color: #ffffff;
+}
+
+#footer #logo {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	width: 350px;
+	height: 131px;
+    background: url(../images/jpardy_white_350x131.png);
+}

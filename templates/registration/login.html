@@ -3,25 +3,21 @@
 
 {% block title %}jpardy -- login{% endblock %}
 
-{% block content %}
-<h2>login</h2>
-<form action="{% url 'django.contrib.auth.views.login' %}" method="POST">
+{% block login %}
+<form action="/login/" method="POST">
     {% csrf_token %}
 	<table>
+        <tr><td colspan="5"><strong>login</strong></td></tr>
 		<tr>
             <td>{{ form.username.label_tag }}</td>
             <td>{{ form.username }}</td>
-        </tr>
-		<tr>
             <td>{{ form.password.label_tag }}</td>
             <td>{{ form.password }}</td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align: center"><input type="submit" value="login"/></td>
+            <td><input type="submit" value="login"/></td>
 		</tr>
 		{% if form.errors %}
 		<tr>
-			<td colspan="2" style="text-align: center; color: red;">Incorrect username/password.</td>
+            <td colspan="5" style="text-align: right;"><strong>Incorrect username/password.</strong></td>
 		</tr>
 		{% endif %}
 	</table>
