@@ -9,7 +9,10 @@
 
 #main #content {
     width: 800px;
-    margin: 0 auto;
+    margin: 25px auto;
+    border: 1px solid #cc3300;
+    padding: 15px;
+    background: #ff8888;
 }
 
 #footer {
@@ -44,7 +47,7 @@
 #footer #logo {
 	position: absolute;
 	right: 15px;
-	bottom: 15px;
+    bottom: 10px;
 	width: 350px;
 	height: 131px;
     background: url(../images/jpardy_white_350x131.png);

@@ -4,7 +4,9 @@
 
 {% block content %}
 <h2 style="border-bottom: 1px solid black;">Edit Category: {{ category.name }}</h2>
-{{ formset.non_form_errors }}
+{% for error in formset.non_form_errors %}
+    <p><strong>Error: {{ error }}</strong></p>
+{% endfor %}
 <form method="post" action="">
 <table style="margin: 0 auto">
     {% csrf_token %}
@@ -21,7 +23,7 @@
         <td>{{ form.answer.label }}</td><td>{{ form.answer }}</td>
         </tr>
         {% if not forloop.last %}
-            <tr><td colspan="2"><hr /></td></tr>
+            <tr><td colspan="2"><hr style="border-style: none; border-top-style: solid; color: black;"/></td></tr>
         {% endif %}
     {% endfor %}
     <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Save"></input></td></tr>
