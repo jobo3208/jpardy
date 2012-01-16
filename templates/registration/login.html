@@ -3,6 +3,8 @@
 
 {% block title %}jpardy -- login{% endblock %}
 
+{% block status %}{% endblock %}
+
 {% block login %}
 <form action="/login/" method="POST">
     {% csrf_token %}

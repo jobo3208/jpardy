@@ -13,7 +13,11 @@
 		</div>			
 		<div id="footer">
 			<div id="status">
-				{% block status %}{% endblock %}
+				{% block status %}
+                    {% if user.is_authenticated %}
+                        You are logged in as {{ user.username }}. <a href="/logout/">Logout</a>
+                    {% endif %}
+                {% endblock %}
 			</div>
 			<div id="login">
 				{% block login %}{% endblock %}
