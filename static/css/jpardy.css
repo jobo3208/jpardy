@@ -24,6 +24,10 @@
 	font-size: small;
 }
 
+#footer #status a {
+    color: #ffffff;
+}
+
 #footer #login {
 	position: absolute;
 	top: 10px;
