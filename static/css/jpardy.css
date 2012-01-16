@@ -2,6 +2,7 @@
 	position: absolute;
 	left: 0px;
 	bottom: 150px;
+    top: 0px;
 	width: 100%;
 	overflow-y: auto;
 }
