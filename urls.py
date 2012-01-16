@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import login, logout_then_login
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -20,5 +20,5 @@ urlpatterns = patterns('',
     url(r'^edit/(\d+)/$', 'apps.jpardy.views.edit'),
 
     url(r'^login/$', login),
-    url(r'^logout/$', logout),
+    url(r'^logout/$', logout_then_login),
 )
