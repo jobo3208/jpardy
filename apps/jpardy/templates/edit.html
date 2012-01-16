@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+{{ formset.non_form_errors }}
+<form method="post" action="">
+<table>
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+    {{ form.id }}
+        <tr>
+        <td>{{ form.value.label }}</td><td>{{ form.value }}</td>
+        </tr>
+        <tr>
+        <td>{{ form.question.label }}</td><td>{{ form.question }}</td>
+        </tr>
+        <tr>
+        <td>{{ form.answer.label }}</td><td>{{ form.answer }}</td>
+        </tr>
+    {% endfor %}
+    <tr><td><input type="submit" value="submit"></input></td></tr>
+</table>
+</form>
+{% endblock %}

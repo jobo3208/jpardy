@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=50)
     user = models.ForeignKey(User, editable=False)
@@ -9,6 +8,14 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        super(Category, self).save(*args, **kwargs)
+        self._verify_questions_exist()
+
+    def _verify_questions_exist(self):
+        for i in (100, 200, 300, 400, 500):
+            Question.objects.get_or_create(category=self, value=i)
 
     class Meta:
         ordering = ['name']
