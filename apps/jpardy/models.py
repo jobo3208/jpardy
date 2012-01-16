@@ -17,6 +17,9 @@ class Category(models.Model):
         for i in (100, 200, 300, 400, 500):
             Question.objects.get_or_create(category=self, value=i)
 
+    def number_of_questions(self):
+        return 5 - len(self.question_set.filter(question=''))
+
     class Meta:
         ordering = ['name']
         verbose_name_plural = "categories"
