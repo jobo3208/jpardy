@@ -7,6 +7,11 @@
 	overflow-y: auto;
 }
 
+#main #content {
+    width: 800px;
+    margin: 0 auto;
+}
+
 #footer {
 	position: absolute;
 	left: 0px;

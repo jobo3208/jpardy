@@ -9,7 +9,12 @@
 	</head>
 	<body>
 		<div id="main">
-			{% block main %}{% endblock %}
+            {% block main %}
+                <div id="content">
+                {% block content %}
+                {% endblock %}
+                </div>
+            {% endblock %}
 		</div>			
 		<div id="footer">
 			<div id="status">

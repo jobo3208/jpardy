@@ -2,11 +2,11 @@
 
 {% block title %}jpardy -- edit category{% endblock %}
 
-{% block main %}
+{% block content %}
 <h2>{{ category.name }}</h2>
 {{ formset.non_form_errors }}
 <form method="post" action="">
-<table>
+<table style="margin: 0 auto">
     {% csrf_token %}
     {{ formset.management_form }}
     {% for form in formset %}
