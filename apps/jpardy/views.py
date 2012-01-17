@@ -40,7 +40,7 @@ def edit(request, category_id):
         formset = CategoryFormSet(request.POST, instance=category)
         if formset.is_valid():
             formset.save()
-            return redirect('/home/')
+            return redirect('/manage/')
     else:
         formset = CategoryFormSet(instance=category)
 
