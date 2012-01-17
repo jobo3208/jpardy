@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 
 from apps.jpardy.models import *
-from apps.jpardy.forms import BaseCategoryFormSet
+from apps.jpardy.forms import BaseCategoryFormSet, CategoryNameForm
 from django.forms.models import inlineformset_factory
 
 @login_required
@@ -15,10 +15,23 @@ def home(request):
 
 @login_required
 def manage(request):
+    if request.method == 'POST':
+        category_form = CategoryNameForm(request.POST)
+        if category_form.is_valid():
+            new_category = category_form.save(commit=False)
+            new_category.user = request.user
+            new_category.save()
+
+            # Give a blank form if we succeeded.
+            category_form = CategoryNameForm()
+    else:
+        category_form = CategoryNameForm()
+
     categories = Category.objects.filter(user=request.user)
 
     return render_to_response('manage.html',
-                              {'categories': categories},
+                              {'categories': categories,
+                               'category_form': category_form,},
                               context_instance=RequestContext(request))
 
 @login_required
