@@ -1,1 +1,130 @@
-[{"pk": 1, "model": "jpardy.category", "fields": {"played": false, "name": "Not the Bees!", "user": 1}}, {"pk": 2, "model": "jpardy.question", "fields": {"answer": "Honey", "category": 1, "question": "Bees make this sweet treat.", "value": 200, "daily_double": false}}, {"pk": 3, "model": "jpardy.question", "fields": {"answer": "Buzz", "category": 1, "question": "Bees are said to make this sound.", "value": 100, "daily_double": false}}, {"pk": 4, "model": "jpardy.question", "fields": {"answer": "Wasp", "category": 1, "question": "Not quite a bee, this insect's name is also an acronym for rich white people.", "value": 300, "daily_double": false}}, {"pk": 5, "model": "jpardy.question", "fields": {"answer": "Bee Movie", "category": 1, "question": "An animated film about bees starring Jerry Seinfeld.", "value": 400, "daily_double": false}}, {"pk": 6, "model": "jpardy.question", "fields": {"answer": "The Queen", "category": 1, "question": "This royal bee rules the hive.", "value": 500, "daily_double": false}}]
+[
+  {
+    "pk": 1, 
+    "model": "jpardy.category", 
+    "fields": {
+      "played": false, 
+      "name": "Not the Bees!", 
+      "user": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "jpardy.category", 
+    "fields": {
+      "played": false, 
+      "name": "Tim and Other Allens", 
+      "user": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Buzz", 
+      "category": 1, 
+      "question": "Bees are said to make this sound.", 
+      "value": 100, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Honey", 
+      "category": 1, 
+      "question": "Bees manufacture this sweet treat.", 
+      "value": 200, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Wasp", 
+      "category": 1, 
+      "question": "Not quite a bee, this insect's name is also an acronym for rich white people.", 
+      "value": 300, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Bee Movie", 
+      "category": 1, 
+      "question": "An animated film about bees starring Jerry Seinfeld.", 
+      "value": 400, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "The Queen", 
+      "category": 1, 
+      "question": "This royal bee rules the hive.", 
+      "value": 500, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Home Improvement", 
+      "category": 3, 
+      "question": "Tim Allen starred in this seminal 90s sitcom about a Midwestern family.", 
+      "value": 100, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "The Santa Clause", 
+      "category": 3, 
+      "question": "Tim Allen plays Kringle in this Christmas movie series, which you might only watch if contractually obligated.", 
+      "value": 200, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Ethan Allen", 
+      "category": 3, 
+      "question": "Furniture retailer that shares Tim's surname.", 
+      "value": 300, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Jungle 2 Jungle", 
+      "category": 3, 
+      "question": "Tim shares the screen with Martin Short in this savage children's comedy.", 
+      "value": 400, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Zach Galifianakis", 
+      "category": 3, 
+      "question": "In \"The Hangover\", this actor plays a character who's first name is Tim's last.", 
+      "value": 500, 
+      "daily_double": false
+    }
+  }
+]
