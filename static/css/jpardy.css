@@ -7,6 +7,10 @@
 	overflow-y: auto;
 }
 
+#main a {
+    color: black;
+}
+
 #main #content {
     width: 800px;
     margin: 25px auto;
@@ -55,4 +59,17 @@
 
 .underline {
     border-bottom: 1px solid black;
+}
+
+#category_list {
+    width: 60%;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid black;
+}
+
+#category_list td, th, tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
 }
