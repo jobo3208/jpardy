@@ -25,8 +25,8 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
 class Question(models.Model):
-    question = models.TextField(max_length=200)
-    answer = models.CharField(max_length=50)
+    question = models.TextField(max_length=200, blank=True)
+    answer = models.CharField(max_length=50, blank=True)
     category = models.ForeignKey(Category, editable=False)
     daily_double = models.BooleanField(default=False)
 
