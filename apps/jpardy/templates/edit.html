@@ -1,32 +1,38 @@
 {% extends "base.html" %}
+{% load error_summary %}
 
-{% block title %}jpardy -- edit category{% endblock %}
+{% block title %}jpardy | edit category{% endblock %}
 
 {% block content %}
 <h2 class="underline">Edit Category: {{ category.name }}</h2>
-{% for error in formset.non_form_errors %}
-    <p><strong>Error: {{ error }}</strong></p>
-{% endfor %}
-<form method="post" action="">
-<table style="margin: 0 auto">
-    {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset %}
-    {{ form.id }}
-        <tr>
-        <td>{{ form.value.label }}</td><td>{{ form.value }}</td>
-        </tr>
-        <tr>
-        <td>{{ form.question.label }}</td><td>{{ form.question }}</td>
-        </tr>
-        <tr>
-        <td>{{ form.answer.label }}</td><td>{{ form.answer }}</td>
-        </tr>
-        {% if not forloop.last %}
-            <tr><td colspan="2"><hr style="border-style: none; border-top-style: solid; color: black;"/></td></tr>
-        {% endif %}
-    {% endfor %}
-    <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Save"></input></td></tr>
-</table>
-</form>
+
+    {% if formset.errors %}
+        <div class="errors">
+            <p><strong>Errors were encountered while processing the forms.</strong></p>
+            {% error_summary formset %}
+        </div>
+    {% endif %}
+
+    <form method="post" action="">
+        <table style="margin: 0 auto">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            {% for form in formset %}
+                {{ form.id }}
+                <tr>
+                    <td>{{ form.value.label_tag }}</td><td>{{ form.value }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.question.label_tag }}</td><td>{{ form.question }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.answer.label_tag }}</td><td>{{ form.answer }}</td>
+                </tr>
+                {% if not forloop.last %}
+                    <tr><td colspan="2"><hr style="border-style: none; border-top-style: solid; color: black;"/></td></tr>
+                {% endif %}
+            {% endfor %}
+            <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Save"></input></td></tr>
+        </table>
+    </form>
 {% endblock %}

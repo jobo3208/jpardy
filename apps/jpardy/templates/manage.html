@@ -1,27 +1,40 @@
 {% extends "base.html" %}
+{% load error_summary %}
+
+{% block title %}jpardy | manage categories{% endblock %}
 
 {% block content %}
     <h2 class="underline">My Categories</h2>
+
     {% if categories %}
-    <table id="category_list">
-        <tr><th>Name</th><th>Questions</th><th>Edit</th></tr>
-        {% for category in categories %}
-            <tr>
-            <td>{{ category.name }}</td>
-            <td>{{ category.number_of_questions }}</td>
-            <td><a href="/edit/{{ category.id }}/">edit</a></td>
-            </tr>
-        {% endfor %}
-    </table>
+        <table id="category_list">
+            <tr><th>Name</th><th>Questions</th><th>Edit</th></tr>
+            {% for category in categories %}
+                <tr>
+                <td>{{ category.name }}</td>
+                <td>{{ category.number_of_questions }}</td>
+                <td><a href="/edit/{{ category.id }}/">edit</a></td>
+                </tr>
+            {% endfor %}
+        </table>
     {% else %}
         <p>You have no categories.</p>
     {% endif %}
+
     <h2 class="underline">Create New Category</h3>
+
+    {% if category_form.errors %}
+        <div class="errors">
+            <p><strong>Errors were encountered while processing the form.</strong></p>
+            {% error_summary category_form %}
+        </div>
+    {% endif %}
+
     <div style="text-align: center;">
-    <form action="" method="post">
-    {% csrf_token %}
-    {{ category_form.as_p }}
-    <input type="submit" value="Create"/>
-    </form>
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>{{ category_form.name.label_tag }}: {{ category_form.name }}</p>
+            <input type="submit" value="Create"/>
+        </form>
     </div>
 {% endblock %}
