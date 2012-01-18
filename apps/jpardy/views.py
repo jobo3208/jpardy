@@ -63,6 +63,22 @@ def edit(request, category_id):
                          "category": category,}, 
                          context_instance=RequestContext(request))
 
+@login_required
+def delete(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+
+    if request.user != category.user:
+        return error(request, "You do not own this category.")
+
+    if request.method == 'POST':
+        category.delete()
+        return redirect('/manage/')
+
+    return render_to_response(
+                        "confirm_delete.html", 
+                        {"category": category,}, 
+                        context_instance=RequestContext(request))
+
 def error(request, message):
     return render_to_response(
                         "error.html",

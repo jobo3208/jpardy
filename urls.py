@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^home/$', 'apps.jpardy.views.home'),
     url(r'^manage/$', 'apps.jpardy.views.manage'),
     url(r'^edit/(\d+)/$', 'apps.jpardy.views.edit'),
+    url(r'^delete/(\d+)/$', 'apps.jpardy.views.delete'),
 
     url(r'^login/$', login),
     url(r'^logout/$', logout_then_login),

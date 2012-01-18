@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}jpardy | delete category{% endblock %}
+
+{% block content %}
+    <h2 class="underline">Delete Category</h2>
+    <p>Are you sure you want to delete the category <strong>{{ category.name }}</strong>?</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Yes, delete it"/>
+        <input type="button" value="No, forget it" onClick="parent.location='/manage/'"/>
+    </form>
+{% endblock %}

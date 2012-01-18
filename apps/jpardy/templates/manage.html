@@ -8,12 +8,13 @@
 
     {% if categories %}
         <table id="category_list">
-            <tr><th>Name</th><th>Questions</th><th>Edit</th></tr>
+            <tr><th>Name</th><th>Questions</th><th>Edit</th><th>Delete</th></tr>
             {% for category in categories %}
                 <tr>
                 <td>{{ category.name }}</td>
                 <td>{{ category.number_of_questions }}</td>
                 <td><a href="/edit/{{ category.id }}/">edit</a></td>
+                <td><a href="/delete/{{ category.id }}/">delete</a></td>
                 </tr>
             {% endfor %}
         </table>
