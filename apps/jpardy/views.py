@@ -39,7 +39,7 @@ def edit(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
     if request.user != category.user:
-        return HttpResponse("You do not own this category.")
+        return error(request, "You do not own this category.")
 
     CategoryFormSet = inlineformset_factory(
                         Category, 
@@ -62,3 +62,9 @@ def edit(request, category_id):
                         {"formset": formset,
                          "category": category,}, 
                          context_instance=RequestContext(request))
+
+def error(request, message):
+    return render_to_response(
+                        "error.html",
+                        {'error_message': message},
+                        context_instance=RequestContext(request))
