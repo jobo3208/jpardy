@@ -1,3 +1,7 @@
+body {
+    font-family: sans-serif;
+}
+
 #main {
 	position: absolute;
 	left: 0px;
@@ -56,7 +60,7 @@
     bottom: 10px;
 	width: 350px;
 	height: 131px;
-    background: url(../images/jpardy_white_350x131.png);
+    background: url(../images/jpardy_logo.png);
 }
 
 .underline {
