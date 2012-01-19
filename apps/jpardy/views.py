@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 
 from apps.jpardy.models import *
-from apps.jpardy.forms import BaseCategoryFormSet, CategoryNameForm
+from apps.jpardy.forms import *
 from django.forms.models import inlineformset_factory
 
 @login_required
@@ -77,6 +77,26 @@ def delete(request, category_id):
     return render_to_response(
                         "confirm_delete.html", 
                         {"category": category,}, 
+                        context_instance=RequestContext(request))
+
+@login_required
+def play(request):
+    if request.method == 'POST':
+        form = SelectCategoryForm(request.POST)
+        if form.is_valid():
+            ret = ''
+            for k, v in form.cleaned_data.items():
+                for a in v:
+                    ret += unicode(a) + '\n'
+
+            return HttpResponse(ret)
+    else:
+        category_choices = Category.objects.filter(user=request.user)
+        form = SelectCategoryForm(queryset=category_choices)
+
+    return render_to_response(
+                        "select_categories.html",
+                        {"form": form},
                         context_instance=RequestContext(request))
 
 def error(request, message):

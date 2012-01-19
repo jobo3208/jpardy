@@ -20,3 +20,11 @@ class CategoryNameForm(ModelForm):
     class Meta:
         model = Category
         fields = ('name',)
+
+class SelectCategoryForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        queryset = kwargs.pop('queryset', Category.objects.all())
+        super(SelectCategoryForm, self).__init__(*args, **kwargs)
+        self.fields['categories'] = forms.ModelMultipleChoiceField(
+                                            queryset=queryset,
+                                            label='Categories')
