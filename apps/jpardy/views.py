@@ -92,7 +92,10 @@ def play(request):
             return HttpResponse(ret)
     else:
         category_choices = Category.objects.filter(user=request.user)
-        form = SelectCategoryForm(queryset=category_choices)
+        if len(category_choices) == 0:
+            form = None
+        else:
+            form = SelectCategoryForm(queryset=category_choices)
 
     return render_to_response(
                         "select_categories.html",

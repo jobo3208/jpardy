@@ -16,14 +16,18 @@
         </div>
     {% endif %}
 
-    <form action="" method="post">
-        <div style="text-align: center">
-            {% csrf_token %}
-            {% for field in form %}
-                {{ field }}
-            {% endfor %}
-            <br />
-            <input type="submit" value="Select"/>
-        </div>
-    </form>
+    <div style="text-align: center">
+        {% if form %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    {{ field }}
+                {% endfor %}
+                <br />
+                <input type="submit" value="Select"/>
+            </form>
+        {% else %}
+            <p><strong>You don't have any categories yet!</strong></p>
+        {% endif %}
+    </div>
 {% endblock %}
