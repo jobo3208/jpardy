@@ -16,9 +16,23 @@ body {
     color: black;
 }
 
+#main #nav_container {
+    width: 832px;
+    margin: 10px auto;
+}
+
+#main #nav_container #nav {
+    border: 1px solid black;
+    background: #cc3300;
+    margin: 0;
+    padding: 0;
+    width: 98px;
+    height: 32px;
+}
+
 #main #content {
     width: 800px;
-    margin: 25px auto;
+    margin: 10px auto;
     border: 1px solid #cc3300;
     padding: 15px;
     background: #ffffff;
