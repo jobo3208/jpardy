@@ -1,0 +1,248 @@
+[
+  {
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user1", 
+      "first_name": "Userone", 
+      "last_name": "Johnson", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-01-20 12:02:49", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$41200$67af4e92d97484e512af4234c2afd7af4f35e53d", 
+      "email": "user1@jpardy.com", 
+      "date_joined": "2012-01-20 11:57:54"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user2", 
+      "first_name": "Usertwo", 
+      "last_name": "Thompson", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-01-20 12:10:17", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$60535$545441243c725476580b134b7c3b9db78a551e01", 
+      "email": "user2@jpardy.com", 
+      "date_joined": "2012-01-20 11:58:48"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user3", 
+      "first_name": "Userthree", 
+      "last_name": "Anderson", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-01-20 12:02:11", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$7ba03$349b43116eac3c53b61e5449e45d79996f1f01c5", 
+      "email": "user3@jpardy.com", 
+      "date_joined": "2012-01-20 12:02:11"
+    }
+  },
+  {
+    "pk": 1, 
+    "model": "jpardy.category", 
+    "fields": {
+      "played": false, 
+      "name": "Guitar Brands", 
+      "user": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "jpardy.category", 
+    "fields": {
+      "played": false, 
+      "name": "Who Sang It?", 
+      "user": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "jpardy.category", 
+    "fields": {
+      "played": false, 
+      "name": "Name That Candy", 
+      "user": 2
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Fender", 
+      "category": 1, 
+      "question": "Stratocaster", 
+      "value": 100, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Gibson", 
+      "category": 1, 
+      "question": "Les Paul (the good ones)", 
+      "value": 200, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Jackson", 
+      "category": 1, 
+      "question": "Dinky", 
+      "value": 300, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Gretsch", 
+      "category": 1, 
+      "question": "White Falcon", 
+      "value": 400, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Epiphone", 
+      "category": 1, 
+      "question": "Casino", 
+      "value": 500, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Ozzy Osbourne", 
+      "category": 2, 
+      "question": "Crazy Train", 
+      "value": 100, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Bob Dylan", 
+      "category": 2, 
+      "question": "Masters of War", 
+      "value": 200, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "James Hetfield", 
+      "category": 2, 
+      "question": "The Unforgiven", 
+      "value": 300, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Ben Gibbard", 
+      "category": 2, 
+      "question": "I Will Follow You Into The Dark", 
+      "value": 400, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Dave Mustaine", 
+      "category": 2, 
+      "question": "Symphony of Destruction", 
+      "value": 500, 
+      "daily_double": false
+    }
+  },
+  {
+    "pk": 11, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "M&Ms", 
+      "category": 3, 
+      "question": "Tiny chocolates in candy-covered shells", 
+      "value": 100, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Twix", 
+      "category": 3, 
+      "question": "The only candy with the cookie crunch", 
+      "value": 200, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Snickers", 
+      "category": 3, 
+      "question": "Peanuts, caramel, nougat, and chocolate", 
+      "value": 300, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Kit Kat", 
+      "category": 3, 
+      "question": "Crisp wafers in chocolate", 
+      "value": 400, 
+      "daily_double": false
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "York Peppermint Patty", 
+      "category": 3, 
+      "question": "Get the sensation", 
+      "value": 500, 
+      "daily_double": false
+    }
+  }
+]
