@@ -34,3 +34,13 @@ class JpardyViewsTest(TestCase):
         self.client.login(username='user1', password='password1')
         resp = self.client.get('/home/')
         self.assertEquals(resp.status_code, 200)
+
+    def test_manage_page(self):
+        resp = self.client.get('/manage/')
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp['Location'],
+                         'http://testserver/login/?next=/manage/')
+
+        self.client.login(username='user1', password='password1')
+        resp = self.client.get('/manage/')
+        self.assertEquals(resp.status_code, 200)
