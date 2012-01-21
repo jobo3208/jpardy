@@ -50,16 +50,20 @@ def edit(request, category_id):
                         formset=BaseCategoryFormSet)
 
     if request.method == 'POST':
+        form = CategoryNameForm(request.POST, instance=category)
         formset = CategoryFormSet(request.POST, instance=category)
-        if formset.is_valid():
+        if form.is_valid and formset.is_valid():
+            form.save()
             formset.save()
             return redirect('/manage/')
     else:
+        form = CategoryNameForm(instance=category)
         formset = CategoryFormSet(instance=category)
 
     return render_to_response(
                         "edit.html", 
-                        {"formset": formset,
+                        {"form": form,
+                         "formset": formset,
                          "category": category,}, 
                          context_instance=RequestContext(request))
 

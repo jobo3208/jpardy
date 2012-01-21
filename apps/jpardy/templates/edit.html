@@ -6,9 +6,10 @@
 {% block content %}
 <h2 class="underline">Edit Category: {{ category.name }}</h2>
 
-    {% if formset.errors %}
+    {% if form.errors or formset.errors %}
         <div class="errors">
             <p><strong>Errors were encountered while processing the forms.</strong></p>
+            {% error_summary form %}
             {% error_summary formset %}
         </div>
     {% endif %}
@@ -16,21 +17,22 @@
     <form method="post" action="">
         <table style="margin: 0 auto">
             {% csrf_token %}
+            {% for field in form %}
+                <tr><td>{{ field.label_tag}}</td><td>{{ field }}</td></tr>
+            {% endfor %}
             {{ formset.management_form }}
-            {% for form in formset %}
-                {{ form.id }}
+            {% for f in formset %}
+                {{ f.id }}
+                <tr><td colspan="2"><hr style="border-style: none; border-top-style: solid; color: black;"/></td></tr>
                 <tr>
-                    <td>{{ form.value.label_tag }}</td><td>{{ form.value }}</td>
+                    <td>{{ f.value.label_tag }}</td><td>{{ f.value }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form.question.label_tag }}</td><td>{{ form.question }}</td>
+                    <td>{{ f.question.label_tag }}</td><td>{{ f.question }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form.answer.label_tag }}</td><td>{{ form.answer }}</td>
+                    <td>{{ f.answer.label_tag }}</td><td>{{ f.answer }}</td>
                 </tr>
-                {% if not forloop.last %}
-                    <tr><td colspan="2"><hr style="border-style: none; border-top-style: solid; color: black;"/></td></tr>
-                {% endif %}
             {% endfor %}
             <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Save"></input></td></tr>
         </table>
