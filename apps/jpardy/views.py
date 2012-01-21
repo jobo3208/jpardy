@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 
@@ -10,8 +10,8 @@ from django.forms.models import inlineformset_factory
 
 @login_required
 def home(request):
-    return render_to_response('home.html',
-                              context_instance=RequestContext(request))
+    return render(request,
+                  'home.html')
 
 @login_required
 def manage(request):
@@ -29,10 +29,10 @@ def manage(request):
 
     categories = Category.objects.filter(user=request.user)
 
-    return render_to_response('manage.html',
-                              {'categories': categories,
-                               'category_form': category_form,},
-                              context_instance=RequestContext(request))
+    return render(request,
+                  'manage.html',
+                  {'categories': categories,
+                   'category_form': category_form,})
 
 @login_required
 def edit(request, category_id):
@@ -60,12 +60,11 @@ def edit(request, category_id):
         form = CategoryNameForm(instance=category)
         formset = CategoryFormSet(instance=category)
 
-    return render_to_response(
-                        "edit.html", 
-                        {"form": form,
-                         "formset": formset,
-                         "category": category,}, 
-                         context_instance=RequestContext(request))
+    return render(request,
+                  "edit.html", 
+                  {"form": form,
+                   "formset": formset,
+                   "category": category,})
 
 @login_required
 def delete(request, category_id):
@@ -78,10 +77,9 @@ def delete(request, category_id):
         category.delete()
         return redirect('/manage/')
 
-    return render_to_response(
-                        "confirm_delete.html", 
-                        {"category": category,}, 
-                        context_instance=RequestContext(request))
+    return render(request,
+                  "confirm_delete.html", 
+                  {"category": category,})
 
 @login_required
 def play(request):
@@ -101,13 +99,11 @@ def play(request):
         else:
             form = SelectCategoryForm(queryset=category_choices)
 
-    return render_to_response(
-                        "select_categories.html",
-                        {"form": form},
-                        context_instance=RequestContext(request))
+    return render(request,
+                  "select_categories.html",
+                  {"form": form})
 
 def error(request, message):
-    return render_to_response(
-                        "error.html",
-                        {'error_message': message},
-                        context_instance=RequestContext(request))
+    return render(request,
+                  "error.html",
+                  {'error_message': message})
