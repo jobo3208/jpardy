@@ -104,4 +104,5 @@ class GameTestCase(TestCase):
     def test_delete_game(self):
         cig = CategoryInGame.objects.create(game=self.game, category=self.guitar_cat)
         self.game.delete()
+        self.assertEqual(len(QuestionInGame.objects.all()), 0)
         self.assertEqual(len(CategoryInGame.objects.all()), 0)
