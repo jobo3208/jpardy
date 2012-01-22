@@ -46,7 +46,6 @@ def edit(request, category_id):
                         Question, 
                         extra=0, 
                         can_delete=False, 
-                        exclude=('daily_double',), 
                         formset=BaseCategoryFormSet)
 
     if request.method == 'POST':
