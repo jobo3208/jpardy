@@ -24,8 +24,7 @@
       "answer": "Buzz", 
       "category": 1, 
       "question": "Bees are said to make this sound.", 
-      "value": 100, 
-      "daily_double": false
+      "value": 100
     }
   }, 
   {
@@ -35,8 +34,7 @@
       "answer": "Honey", 
       "category": 1, 
       "question": "Bees manufacture this sweet treat.", 
-      "value": 200, 
-      "daily_double": false
+      "value": 200
     }
   }, 
   {
@@ -46,8 +44,7 @@
       "answer": "Wasp", 
       "category": 1, 
       "question": "Not quite a bee, this insect's name is also an acronym for rich white people.", 
-      "value": 300, 
-      "daily_double": false
+      "value": 300
     }
   }, 
   {
@@ -57,8 +54,7 @@
       "answer": "Bee Movie", 
       "category": 1, 
       "question": "An animated film about bees starring Jerry Seinfeld.", 
-      "value": 400, 
-      "daily_double": false
+      "value": 400
     }
   }, 
   {
@@ -68,8 +64,7 @@
       "answer": "The Queen", 
       "category": 1, 
       "question": "This royal bee rules the hive.", 
-      "value": 500, 
-      "daily_double": false
+      "value": 500
     }
   }, 
   {
@@ -79,8 +74,7 @@
       "answer": "Home Improvement", 
       "category": 3, 
       "question": "Tim Allen starred in this seminal 90s sitcom about a Midwestern family.", 
-      "value": 100, 
-      "daily_double": false
+      "value": 100
     }
   }, 
   {
@@ -90,8 +84,7 @@
       "answer": "The Santa Clause", 
       "category": 3, 
       "question": "Tim Allen plays Kringle in this Christmas movie series, which you might only watch if contractually obligated.", 
-      "value": 200, 
-      "daily_double": false
+      "value": 200
     }
   }, 
   {
@@ -101,8 +94,7 @@
       "answer": "Ethan Allen", 
       "category": 3, 
       "question": "Furniture retailer that shares Tim's surname.", 
-      "value": 300, 
-      "daily_double": false
+      "value": 300
     }
   }, 
   {
@@ -112,8 +104,7 @@
       "answer": "Jungle 2 Jungle", 
       "category": 3, 
       "question": "Tim shares the screen with Martin Short in this savage children's comedy.", 
-      "value": 400, 
-      "daily_double": false
+      "value": 400
     }
   }, 
   {
@@ -123,8 +114,7 @@
       "answer": "Zach Galifianakis", 
       "category": 3, 
       "question": "In \"The Hangover\", this actor plays a character who's first name is Tim's last.", 
-      "value": 500, 
-      "daily_double": false
+      "value": 500
     }
   }
 ]

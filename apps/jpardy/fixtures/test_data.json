@@ -87,8 +87,7 @@
       "answer": "Fender", 
       "category": 1, 
       "question": "Stratocaster", 
-      "value": 100, 
-      "daily_double": false
+      "value": 100
     }
   }, 
   {
@@ -98,8 +97,7 @@
       "answer": "Gibson", 
       "category": 1, 
       "question": "Les Paul (the good ones)", 
-      "value": 200, 
-      "daily_double": false
+      "value": 200
     }
   }, 
   {
@@ -109,8 +107,7 @@
       "answer": "Jackson", 
       "category": 1, 
       "question": "Dinky", 
-      "value": 300, 
-      "daily_double": false
+      "value": 300
     }
   }, 
   {
@@ -120,8 +117,7 @@
       "answer": "Gretsch", 
       "category": 1, 
       "question": "White Falcon", 
-      "value": 400, 
-      "daily_double": false
+      "value": 400
     }
   }, 
   {
@@ -131,8 +127,7 @@
       "answer": "Epiphone", 
       "category": 1, 
       "question": "Casino", 
-      "value": 500, 
-      "daily_double": false
+      "value": 500
     }
   }, 
   {
@@ -142,8 +137,7 @@
       "answer": "Ozzy Osbourne", 
       "category": 2, 
       "question": "Crazy Train", 
-      "value": 100, 
-      "daily_double": false
+      "value": 100
     }
   }, 
   {
@@ -153,8 +147,7 @@
       "answer": "Bob Dylan", 
       "category": 2, 
       "question": "Masters of War", 
-      "value": 200, 
-      "daily_double": false
+      "value": 200
     }
   }, 
   {
@@ -164,8 +157,7 @@
       "answer": "James Hetfield", 
       "category": 2, 
       "question": "The Unforgiven", 
-      "value": 300, 
-      "daily_double": false
+      "value": 300
     }
   }, 
   {
@@ -175,8 +167,7 @@
       "answer": "Ben Gibbard", 
       "category": 2, 
       "question": "I Will Follow You Into The Dark", 
-      "value": 400, 
-      "daily_double": false
+      "value": 400
     }
   }, 
   {
@@ -186,8 +177,7 @@
       "answer": "Dave Mustaine", 
       "category": 2, 
       "question": "Symphony of Destruction", 
-      "value": 500, 
-      "daily_double": false
+      "value": 500
     }
   },
   {
@@ -197,8 +187,7 @@
       "answer": "M&Ms", 
       "category": 3, 
       "question": "Tiny chocolates in candy-covered shells", 
-      "value": 100, 
-      "daily_double": false
+      "value": 100
     }
   }, 
   {
@@ -208,8 +197,7 @@
       "answer": "Twix", 
       "category": 3, 
       "question": "The only candy with the cookie crunch", 
-      "value": 200, 
-      "daily_double": false
+      "value": 200
     }
   }, 
   {
@@ -219,8 +207,7 @@
       "answer": "Snickers", 
       "category": 3, 
       "question": "Peanuts, caramel, nougat, and chocolate", 
-      "value": 300, 
-      "daily_double": false
+      "value": 300
     }
   }, 
   {
@@ -230,8 +217,7 @@
       "answer": "Kit Kat", 
       "category": 3, 
       "question": "Crisp wafers in chocolate", 
-      "value": 400, 
-      "daily_double": false
+      "value": 400
     }
   }, 
   {
@@ -241,8 +227,7 @@
       "answer": "York Peppermint Patty", 
       "category": 3, 
       "question": "Get the sensation", 
-      "value": 500, 
-      "daily_double": false
+      "value": 500
     }
   }
 ]
