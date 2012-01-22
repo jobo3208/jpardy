@@ -11,7 +11,17 @@
             <tr><th>Name</th><th>Questions</th><th>Edit</th><th>Delete</th></tr>
             {% for category in categories %}
                 <tr>
-                <td>{{ category.name }}</td>
+                <td>
+                {% if category.played %}
+                    <span style="text-decoration: line-through;">
+                {% endif %}
+
+                {{ category.name }}
+
+                {% if category.played %}
+                    </span>
+                {% endif %}
+                </td>
                 <td>{{ category.number_of_questions }}</td>
                 <td><a href="/edit/{{ category.id }}/">edit</a></td>
                 <td><a href="/delete/{{ category.id }}/">delete</a></td>

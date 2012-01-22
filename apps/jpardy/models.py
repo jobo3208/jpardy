@@ -23,7 +23,7 @@ class Category(models.Model):
         return 5 - len(self.question_set.filter(question=''))
 
     class Meta:
-        ordering = ['name']
+        ordering = ['played', 'name']
         verbose_name_plural = "categories"
 
 
