@@ -28,8 +28,8 @@ class Category(models.Model):
 
 
 class Game(models.Model):
-    user = models.ForeignKey(User, editable=False)
-    categories = models.ManyToManyField(Category, through='CategoryInGame')
+    user = models.ForeignKey(User, editable=False, related_name='game_users')
+    categories = models.ManyToManyField(Category, through='CategoryInGame', related_name='game_players')
     players = models.ManyToManyField(User)
 
 
