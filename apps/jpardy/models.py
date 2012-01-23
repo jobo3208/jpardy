@@ -30,6 +30,7 @@ class Category(models.Model):
 class Game(models.Model):
     user = models.ForeignKey(User, editable=False)
     categories = models.ManyToManyField(Category, through='CategoryInGame')
+    players = models.ManyToManyField(User)
 
 
 class Question(models.Model):
