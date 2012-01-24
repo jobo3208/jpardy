@@ -3,6 +3,7 @@ from django.forms.models import BaseInlineFormSet
 from django.forms import ModelForm
 
 from apps.jpardy.models import Category
+from django.contrib.auth.models import User
 
 class BaseCategoryFormSet(BaseInlineFormSet):
     def clean(self):
@@ -21,10 +22,14 @@ class CategoryNameForm(ModelForm):
         model = Category
         fields = ('name',)
 
-class SelectCategoryForm(forms.Form):
+class InitialGamePrepForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        queryset = kwargs.pop('queryset', Category.objects.all())
-        super(SelectCategoryForm, self).__init__(*args, **kwargs)
+        category_qs = kwargs.pop('category_qs', Category.objects.all())
+        super(InitialGamePrepForm, self).__init__(*args, **kwargs)
         self.fields['categories'] = forms.ModelMultipleChoiceField(
-                                            queryset=queryset,
+                                            queryset=category_qs,
                                             label='Categories')
+
+    players = forms.ModelMultipleChoiceField(
+                                            queryset=User.objects.all(), 
+                                            label='Players')

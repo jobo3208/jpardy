@@ -82,24 +82,29 @@ def delete(request, category_id):
 
 @login_required
 def play(request):
-    if request.method == 'POST':
-        form = SelectCategoryForm(request.POST)
-        if form.is_valid():
-            ret = ''
-            for k, v in form.cleaned_data.items():
-                for a in v:
-                    ret += unicode(a) + '\n'
+    category_choices = Category.objects.filter(user=request.user)
 
-            return HttpResponse(ret)
+    if request.method == 'POST':
+        form = InitialGamePrepForm(request.POST, category_qs=category_choices)
+        if form.is_valid():
+            game = Game.objects.create(user=request.user)
+            game.players = form.cleaned_data['players']
+            game.save()
+
+            for category in form.cleaned_data['categories']:
+                CategoryInGame.objects.create(
+                                            game=game,
+                                            category=category)
+            return redirect('/home/')
+
     else:
-        category_choices = Category.objects.filter(user=request.user)
         if len(category_choices) == 0:
             form = None
         else:
-            form = SelectCategoryForm(queryset=category_choices)
+            form = InitialGamePrepForm(category_qs=category_choices)
 
     return render(request,
-                  "select_categories.html",
+                  "prepare_game.html",
                   {"form": form})
 
 def error(request, message):
