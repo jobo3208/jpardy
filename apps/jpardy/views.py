@@ -81,20 +81,29 @@ def delete(request, category_id):
                   {"category": category,})
 
 @login_required
-def play(request):
+def games(request):
+    my_games = request.user.games_created.all()
+
+    return render(request,
+                  "games.html",
+                  {"games": my_games})
+
+@login_required
+def create_game(request):
     category_choices = Category.objects.filter(user=request.user)
 
     if request.method == 'POST':
         form = InitialGamePrepForm(request.POST, category_qs=category_choices)
+
         if form.is_valid():
             game = Game.objects.create(user=request.user)
             game.players = form.cleaned_data['players']
             game.save()
 
             for category in form.cleaned_data['categories']:
-                CategoryInGame.objects.create(
-                                            game=game,
-                                            category=category)
+                CategoryInGame.objects.create(game=game,
+                                              category=category)
+
             return redirect('/home/')
 
     else:
