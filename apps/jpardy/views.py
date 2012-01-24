@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 
@@ -104,7 +105,7 @@ def create_game(request):
                 CategoryInGame.objects.create(game=game,
                                               category=category)
 
-            return redirect('/home/')
+            return redirect(reverse(set_daily_doubles, args=[game.pk]))
 
     else:
         if len(category_choices) == 0:
@@ -115,6 +116,11 @@ def create_game(request):
     return render(request,
                   "prepare_game.html",
                   {"form": form})
+
+@login_required
+def set_daily_doubles(request, game_id):
+    return HttpResponse("yo dawg, this is game %d" % int(game_id))
+
 
 def error(request, message):
     return render(request,

@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^delete/(\d+)/$', 'apps.jpardy.views.delete'),
     url(r'^games/$', 'apps.jpardy.views.games'),
     url(r'^create_game/$', 'apps.jpardy.views.create_game'),
+    url(r'^set_daily_doubles/(\d+)/$', 'apps.jpardy.views.set_daily_doubles'),
 
     url(r'^login/$', login),
     url(r'^logout/$', logout_then_login),
