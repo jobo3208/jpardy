@@ -28,9 +28,9 @@ class Category(models.Model):
 
 
 class Game(models.Model):
-    user = models.ForeignKey(User, editable=False, related_name='game_users')
+    user = models.ForeignKey(User, editable=False, related_name='games_created')
     categories = models.ManyToManyField(Category, through='CategoryInGame')
-    players = models.ManyToManyField(User, related_name='game_players')
+    players = models.ManyToManyField(User, related_name='games_played_in')
 
 
 class Question(models.Model):
