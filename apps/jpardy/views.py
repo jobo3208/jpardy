@@ -119,8 +119,23 @@ def create_game(request):
 
 @login_required
 def set_daily_doubles(request, game_id):
-    return HttpResponse("yo dawg, this is game %d" % int(game_id))
+    game = get_object_or_404(Game, id=game_id)
 
+    if request.method == 'POST':
+        formset = GameDailyDoubleFormSet(request.POST, instance=game)
+ 
+        if formset.is_valid():
+            formset.save_all()
+ 
+            return redirect('/home/')
+ 
+    else:
+        formset = GameDailyDoubleFormSet(instance=game)
+ 
+    return render(request,
+                  'select_daily_doubles.html',
+                  {'game':game,
+                   'categories':formset,})
 
 def error(request, message):
     return render(request,
