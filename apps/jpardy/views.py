@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 
@@ -49,7 +48,9 @@ def edit(request, category_id):
         if form.is_valid and formset.is_valid():
             form.save()
             formset.save()
-            return redirect('/manage/')
+
+            return redirect(manage)
+
     else:
         form = CategoryNameForm(instance=category)
         formset = CategoryFormSet(instance=category)
@@ -69,7 +70,8 @@ def delete(request, category_id):
 
     if request.method == 'POST':
         category.delete()
-        return redirect('/manage/')
+
+        return redirect(manage)
 
     return render(request,
                   "confirm_delete.html", 
@@ -121,7 +123,7 @@ def set_daily_doubles(request, game_id):
         if formset.is_valid():
             formset.save_all()
  
-            return redirect('/home/')
+            return redirect(games)
  
     else:
         formset = GameDailyDoubleFormSet(instance=game)
