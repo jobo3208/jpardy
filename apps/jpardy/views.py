@@ -7,7 +7,6 @@ from django.http import HttpResponse
 
 from apps.jpardy.models import *
 from apps.jpardy.forms import *
-from django.forms.models import inlineformset_factory
 
 @login_required
 def home(request):
@@ -18,6 +17,7 @@ def home(request):
 def manage(request):
     if request.method == 'POST':
         category_form = CategoryNameForm(request.POST)
+
         if category_form.is_valid():
             new_category = category_form.save(commit=False)
             new_category.user = request.user
@@ -42,16 +42,10 @@ def edit(request, category_id):
     if request.user != category.user:
         return error(request, "You do not own this category.")
 
-    CategoryFormSet = inlineformset_factory(
-                        Category, 
-                        Question, 
-                        extra=0, 
-                        can_delete=False, 
-                        formset=BaseCategoryFormSet)
-
     if request.method == 'POST':
         form = CategoryNameForm(request.POST, instance=category)
         formset = CategoryFormSet(request.POST, instance=category)
+
         if form.is_valid and formset.is_valid():
             form.save()
             formset.save()
@@ -105,7 +99,7 @@ def create_game(request):
                 CategoryInGame.objects.create(game=game,
                                               category=category)
 
-            return redirect(reverse(set_daily_doubles, args=[game.pk]))
+            return redirect(set_daily_doubles, game.id)
 
     else:
         if len(category_choices) == 0:

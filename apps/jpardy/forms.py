@@ -6,7 +6,10 @@ from django.forms import ModelForm
 from apps.jpardy.models import *
 from django.contrib.auth.models import User
 
+
 class BaseCategoryFormSet(BaseInlineFormSet):
+    """Base formset for category editing."""
+
     def clean(self):
         if any(self.errors):
             return
@@ -18,12 +21,27 @@ class BaseCategoryFormSet(BaseInlineFormSet):
                 raise forms.ValidationError("Each question must have a unique money value.")
             values.append(value)
 
+
+# Formset for category editing.
+CategoryFormSet = inlineformset_factory(
+                    Category, 
+                    Question, 
+                    extra=0, 
+                    can_delete=False, 
+                    formset=BaseCategoryFormSet)
+
+
 class CategoryNameForm(ModelForm):
+    """Simple form for specifying a category's name."""
+
     class Meta:
         model = Category
         fields = ('name',)
 
+
 class InitialGamePrepForm(forms.Form):
+    """Form that handles player and category selection for a new game."""
+
     def __init__(self, *args, **kwargs):
         category_qs = kwargs.pop('category_qs', Category.objects.all())
         super(InitialGamePrepForm, self).__init__(*args, **kwargs)
@@ -35,6 +53,8 @@ class InitialGamePrepForm(forms.Form):
                                             queryset=User.objects.all(), 
                                             label='Players')
 
+
+# Daily double selection formset for each category in a game.
 CategoryInGameDailyDoubleFormSet = inlineformset_factory(
                                         CategoryInGame,
                                         QuestionInGame,
@@ -45,6 +65,8 @@ CategoryInGameDailyDoubleFormSet = inlineformset_factory(
 
 class BaseGameDailyDoubleFormSet(BaseInlineFormSet):
     """
+    Base formset for daily double selection for a game.
+
     Nested formset code from:
     http://yergler.net/blog/2009/09/27/nested-formsets-with-django/.
 
@@ -115,6 +137,8 @@ class BaseGameDailyDoubleFormSet(BaseInlineFormSet):
             for nested in form.nested:
                 nested.save(commit=commit)
 
+
+# Daily double selection formset for a whole game.
 GameDailyDoubleFormSet = inlineformset_factory(
                                         Game,
                                         CategoryInGame,
