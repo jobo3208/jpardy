@@ -7,10 +7,10 @@
 
     {% if games %}
         <table class="bordered_table">
-            <tr><th>Game</th></tr>
+            <tr><th>Game</th><th>Created</th></tr>
             {% for game in games %}
                 <tr>
-                <td>Game #{{ game.pk }}</td>
+                <td>Game #{{ game.pk }}</td><td>{{ game.create_date }}</td>
                 </tr>
             {% endfor %}
         </table>
