@@ -87,7 +87,12 @@ def games(request):
 
 @login_required
 def create_game(request):
-    category_choices = Category.objects.filter(user=request.user)
+    # We have to use this convoluted way of getting only "full" categories.
+    category_choice_pks = [cat.pk for 
+                                cat in 
+                                    Category.objects.filter(user=request.user) if
+                                        cat.number_of_questions == 5]
+    category_choices = Category.objects.filter(pk__in=category_choice_pks)
 
     if request.method == 'POST':
         form = InitialGamePrepForm(request.POST, category_qs=category_choices)
