@@ -29,11 +29,15 @@ class Category(models.Model):
 
 
 class Game(models.Model):
-    user = models.ForeignKey(User, editable=False, related_name='games_created')
+    creator = models.ForeignKey(User, editable=False, related_name='games_created')
     categories = models.ManyToManyField(Category, through='CategoryInGame')
-    players = models.ManyToManyField(User, related_name='games_played_in')
+    players = models.ManyToManyField(User, related_name='games_played', through='PlayerInGame')
     create_date = models.DateTimeField(auto_now_add=True)
 
+class PlayerInGame(models.Model):
+    game = models.ForeignKey(Game)
+    player = models.ForeignKey(User)
+    score = models.PositiveSmallIntegerField(default=0)
 
 class Question(models.Model):
     question = models.TextField(max_length=200, blank=True)
@@ -93,7 +97,7 @@ class GameTestCase(TestCase):
         self.user = User.objects.get(username='user1')
         self.guitar_cat = Category.objects.get(name='Guitar Brands')
         self.candy_cat = Category.objects.get(name='Name That Candy')
-        self.game = Game.objects.create(user=self.user)
+        self.game = Game.objects.create(creator=self.user)
 
     def test_question_creation(self):
         cig = CategoryInGame.objects.create(game=self.game, category=self.guitar_cat)
