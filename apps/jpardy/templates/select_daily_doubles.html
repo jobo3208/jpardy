@@ -17,30 +17,39 @@
 {% endif %}
 
 <form action="." method="POST">
-  {% csrf_token %}
-  {{ categories.management_form }}
-  {% for category in categories %}
-  <div class="formgroup">
-    {{ category }}
- 
-    {% if category.nested %}
-        {% for formset in category.nested %}
-        {{ formset.management_form }}
-        <table style="width: 100%; text-align: center;"><tr>
-        <td style="width: 25%;">{{ formset.instance.category.name }}</td>
-            {% for form in formset %}
-                <td><a onmouseover="popup('{{ form.instance.question.question|escapejs }}');">{{ form.instance.question.value }}</a>
-                {% for field in form %}
-                    {{ field }}
-                {% endfor %}</td>
-            {% endfor %}
-        </tr></table>
+    {% csrf_token %}
+    {{ categories.management_form }}
+    <table class="bordered_table" style="width: 100%;">
+        <tr>
+            <th>Category</th>
+            <th>100</th>
+            <th>200</th>
+            <th>300</th>
+            <th>400</th>
+            <th>500</th>
+        </tr>
+        {% for category in categories %}
+            <div class="formgroup">
+            {{ category }}
+            <tr>
+            {% if category.nested %}
+                {% for formset in category.nested %}
+                    <td style="width: 25%;">{{ formset.instance.category.name }}</td>
+                    {{ formset.management_form }}
+                        {% for form in formset %}
+                            <td><a onmouseover="popup('{{ form.instance.question.question|escapejs }}');">{{ form.instance.question.value }}</a>
+                            {% for field in form %}
+                                {{ field }}
+                            {% endfor %}</td>
+                        {% endfor %}
+                {% endfor %}
+            {% endif %}
+            </tr>
+            </div>
         {% endfor %}
-    {% endif %}
-  </div>
-  {% endfor %}
-  <br />
-  <div style="text-align: center"><input type="submit" value="Select" /></div>
+    </table>
+    <br />
+    <div style="text-align: center"><input type="submit" value="Select" /></div>
 </form>
 
 {% endblock %}
