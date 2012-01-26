@@ -81,14 +81,14 @@ body {
     border-bottom: 1px solid black;
 }
 
-#category_list {
+.bordered_table {
     width: 60%;
     margin: 0 auto;
     background: #ffffff;
     border: 1px solid black;
 }
 
-#category_list td, #category_list th, #category_list tr {
+.bordered_table td, .bordered_table th, .bordered_table tr {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
