@@ -125,6 +125,9 @@ def create_game(request):
 def set_daily_doubles(request, game_id):
     game = get_object_or_404(Game, id=game_id)
 
+    if request.user != game.owner:
+        return error(request, "You do not own this game.")
+
     if request.method == 'POST':
         formset = GameDailyDoubleFormSet(request.POST, instance=game)
  
