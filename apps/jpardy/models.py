@@ -64,11 +64,15 @@ class QuestionInGame(models.Model):
     category_in_game = models.ForeignKey('CategoryInGame')
     question = models.ForeignKey(Question)
     daily_double = models.BooleanField(default=False)
-    played = models.BooleanField(default=False)
-    answered_by = models.ForeignKey(User, blank=True, null=True)
 
     class Meta:
         unique_together = ('category_in_game', 'question')
+
+
+class QuestionInGameResult(models.Model):
+    question_in_game = models.ForeignKey(QuestionInGame)
+    player = models.ForeignKey(User)
+    score_change = models.SmallIntegerField(default=0)
 
 
 class CategoryInGame(models.Model):
