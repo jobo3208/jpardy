@@ -37,7 +37,7 @@ class Game(models.Model):
 class PlayerInGame(models.Model):
     game = models.ForeignKey(Game)
     player = models.ForeignKey(User)
-    score = models.PositiveSmallIntegerField(default=0)
+    score = models.SmallIntegerField(default=0)
 
 class Question(models.Model):
     question = models.TextField(max_length=200, blank=True)
