@@ -5,7 +5,7 @@
     "fields": {
       "played": false, 
       "name": "Not the Bees!", 
-      "user": 1
+      "owner": 1
     }
   }, 
   {
@@ -14,7 +14,7 @@
     "fields": {
       "played": false, 
       "name": "Tim and Other Allens", 
-      "user": 1
+      "owner": 1
     }
   }, 
   {

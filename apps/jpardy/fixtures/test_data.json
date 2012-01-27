@@ -59,7 +59,7 @@
     "fields": {
       "played": false, 
       "name": "Guitar Brands", 
-      "user": 1
+      "owner": 1
     }
   }, 
   {
@@ -68,7 +68,7 @@
     "fields": {
       "played": false, 
       "name": "Who Sang It?", 
-      "user": 1
+      "owner": 1
     }
   }, 
   {
@@ -77,7 +77,7 @@
     "fields": {
       "played": false, 
       "name": "Name That Candy", 
-      "user": 2
+      "owner": 2
     }
   }, 
   {

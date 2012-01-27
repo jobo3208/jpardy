@@ -19,7 +19,7 @@ def manage(request):
 
         if category_form.is_valid():
             new_category = category_form.save(commit=False)
-            new_category.user = request.user
+            new_category.owner = request.user
             new_category.save()
 
             # Give a blank form if we succeeded.
@@ -27,7 +27,7 @@ def manage(request):
     else:
         category_form = CategoryNameForm()
 
-    categories = Category.objects.filter(user=request.user)
+    categories = Category.objects.filter(owner=request.user)
 
     return render(request,
                   'manage.html',
@@ -38,7 +38,7 @@ def manage(request):
 def edit(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
-    if request.user != category.user:
+    if request.user != category.owner:
         return error(request, "You do not own this category.")
 
     if request.method == 'POST':
@@ -65,7 +65,7 @@ def edit(request, category_id):
 def delete(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
-    if request.user != category.user:
+    if request.user != category.owner:
         return error(request, "You do not own this category.")
 
     if request.method == 'POST':
@@ -79,7 +79,7 @@ def delete(request, category_id):
 
 @login_required
 def games(request):
-    my_games = request.user.games_created.all()
+    my_games = request.user.games_owned.all()
 
     return render(request,
                   "games.html",
@@ -90,7 +90,7 @@ def create_game(request):
     # We have to use this convoluted way of getting only "full" categories.
     category_choice_pks = [cat.pk for 
                                 cat in 
-                                    Category.objects.filter(user=request.user) if
+                                    Category.objects.filter(owner=request.user) if
                                         cat.number_of_questions == 5]
     category_choices = Category.objects.filter(pk__in=category_choice_pks)
 
@@ -98,9 +98,12 @@ def create_game(request):
         form = InitialGamePrepForm(request.POST, category_qs=category_choices)
 
         if form.is_valid():
-            game = Game.objects.create(user=request.user)
-            game.players = form.cleaned_data['players']
+            game = Game.objects.create(owner=request.user)
             game.save()
+
+            for player in form.cleaned_data['players']:
+                PlayerInGame.objects.create(game=game,
+                                            player=player)
 
             for category in form.cleaned_data['categories']:
                 CategoryInGame.objects.create(game=game,

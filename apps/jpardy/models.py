@@ -5,7 +5,7 @@ from django.db import IntegrityError
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    user = models.ForeignKey(User, editable=False)
+    owner = models.ForeignKey(User, editable=False)
     played = models.BooleanField(default=False, editable=False)
 
     def __unicode__(self):
@@ -29,7 +29,7 @@ class Category(models.Model):
 
 
 class Game(models.Model):
-    creator = models.ForeignKey(User, editable=False, related_name='games_created')
+    owner = models.ForeignKey(User, editable=False, related_name='games_owned')
     categories = models.ManyToManyField(Category, through='CategoryInGame')
     players = models.ManyToManyField(User, related_name='games_played', through='PlayerInGame')
     create_date = models.DateTimeField(auto_now_add=True)
@@ -61,14 +61,14 @@ class Question(models.Model):
 
 
 class QuestionInGame(models.Model):
-    category_use_in_game = models.ForeignKey('CategoryInGame')
+    category_in_game = models.ForeignKey('CategoryInGame')
     question = models.ForeignKey(Question)
     daily_double = models.BooleanField(default=False)
     played = models.BooleanField(default=False)
     answered_by = models.ForeignKey(User, blank=True, null=True)
 
     class Meta:
-        unique_together = ('category_use_in_game', 'question')
+        unique_together = ('category_in_game', 'question')
 
 
 class CategoryInGame(models.Model):
@@ -83,7 +83,7 @@ class CategoryInGame(models.Model):
     def _verify_questions_exist(self):
         for i in (100, 200, 300, 400, 500):
             QuestionInGame.objects.get_or_create(
-                                category_use_in_game=self,
+                                category_in_game=self,
                                 question=self.category.question_set.get(value=i))
 
     class Meta:
@@ -97,7 +97,7 @@ class GameTestCase(TestCase):
         self.user = User.objects.get(username='user1')
         self.guitar_cat = Category.objects.get(name='Guitar Brands')
         self.candy_cat = Category.objects.get(name='Name That Candy')
-        self.game = Game.objects.create(creator=self.user)
+        self.game = Game.objects.create(owner=self.user)
 
     def test_question_creation(self):
         cig = CategoryInGame.objects.create(game=self.game, category=self.guitar_cat)
