@@ -4,6 +4,9 @@ from django.template import RequestContext
 
 from django.http import HttpResponse
 
+from django.core import serializers
+from django.utils import simplejson
+
 from apps.jpardy.models import *
 from apps.jpardy.forms import *
 
@@ -143,6 +146,16 @@ def set_daily_doubles(request, game_id):
                   'select_daily_doubles.html',
                   {'game':game,
                    'categories':formset,})
+
+@login_required
+def play(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+
+    if request.user != game.owner:
+        return error(request, "You do not own this game.")
+
+    return render(request,
+                  'play.html')
 
 def error(request, message):
     return render(request,
