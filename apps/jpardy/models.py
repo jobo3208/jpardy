@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.db import IntegrityError
+from django.utils import simplejson
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -33,6 +34,36 @@ class Game(models.Model):
     categories = models.ManyToManyField(Category, through='CategoryInGame')
     players = models.ManyToManyField(User, related_name='games_played', through='PlayerInGame')
     create_date = models.DateTimeField(auto_now_add=True)
+
+    def get_json_data(self):
+        data = {}
+        data['pk'] = self.pk
+        
+        data['players'] = {}
+        for pig in PlayerInGame.objects.filter(game=self):
+            data['players'][pig.pk] = {}
+            data['players'][pig.pk]['username'] = pig.player.username
+            data['players'][pig.pk]['first_name'] = pig.player.first_name
+            data['players'][pig.pk]['last_name'] = pig.player.last_name
+            data['players'][pig.pk]['score'] = pig.score
+
+        data['categories'] = {}
+        for cig in CategoryInGame.objects.filter(game=self):
+            data['categories'][cig.pk] = {}
+            data['categories'][cig.pk]['name'] = cig.category.name
+
+        data['questions'] = {}
+        for qig in QuestionInGame.objects.filter(category_in_game__game=self):
+            data['questions'][qig.pk] = {}
+            data['questions'][qig.pk]['question'] = qig.question.question
+            data['questions'][qig.pk]['answer'] = qig.question.answer
+            data['questions'][qig.pk]['daily_double'] = qig.daily_double
+
+            data['questions'][qig.pk]['result'] = {}
+            for qigr in QuestionInGameResult.objects.filter(question_in_game=qig):
+                data['questions'][qig.pk]['result'][qigr.player.pk] = qigr.score_change
+
+        return simplejson.dumps(data)
 
 class PlayerInGame(models.Model):
     game = models.ForeignKey(Game)
