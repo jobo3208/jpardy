@@ -102,7 +102,7 @@ class QuestionInGame(models.Model):
 
 class QuestionInGameResult(models.Model):
     question_in_game = models.ForeignKey(QuestionInGame)
-    player = models.ForeignKey(User)
+    player = models.ForeignKey(PlayerInGame)
     score_change = models.SmallIntegerField(default=0)
 
 
