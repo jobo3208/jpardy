@@ -57,7 +57,9 @@ class Game(models.Model):
             data['questions'][qig.pk] = {}
             data['questions'][qig.pk]['question'] = qig.question.question
             data['questions'][qig.pk]['answer'] = qig.question.answer
+            data['questions'][qig.pk]['value'] = qig.question.value
             data['questions'][qig.pk]['daily_double'] = qig.daily_double
+            data['questions'][qig.pk]['category'] = qig.category_in_game.pk
 
             data['questions'][qig.pk]['result'] = {}
             for qigr in QuestionInGameResult.objects.filter(question_in_game=qig):

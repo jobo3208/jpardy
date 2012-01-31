@@ -1,10 +1,77 @@
 {% extends "base.html" %}
 
+{% block title %}game #{{ game.pk }} | jpardy{% endblock %}
+
 {% block content %}
 <script src="{{ STATIC_URL }}js/jquery-1.7.1.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}js/popup.js" type="text/javascript"></script>
 <script type="text/javascript">
 game = jQuery.parseJSON('{{ data|escapejs }}');
-document.write(game.players[4].username + '<br />');
-document.write(game.categories[3].name + '<br />');
+
+$(document).ready(function(){
+    $('#question_area').hide();
+});
+
+displayQuestion = function(question) {
+    category_id = question.category;
+    category_name = game.categories[category_id].name;
+    $('#question_area #header_category').html(category_name);
+    $('#question_area #header_value').html(question.value);
+    $('#question_area #question').html(question.question);
+    $('#question_area #answer').html(question.answer);
+    $('#question_area').show('slow');
+};
 </script>
+<h2 class="underline">jpardy</h2>
+<table id="score_board">
+    <tr>
+        {% for pig in game.playeringame_set.all %}
+            <td>{{ pig.player.username }}</td>
+            <td class="score">{{ pig.score }}</td>
+        {% endfor %}
+    </tr>
+</table>
+<table id="game_board">
+    {% for cig in game.categoryingame_set.all %}
+        <tr>
+            <td>{{ cig.category.name }}</td>
+            {% for qig in cig.questioningame_set.all %}
+            <td><a style="text-decoration: underline;" onclick="displayQuestion(game.questions[{{ qig.pk }}]);">{{ qig.question.value }}</a></td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+<div id="question_area" style="width: 100%;">
+    <h3><span id="header_category">No category</span> for <span id="header_value">no value</span></h3>
+    <table>
+        <tr>
+            <td><strong>Question</strong></td>
+            <td id="question" class="special">No question is selected.</td>
+        </tr>
+        <tr>
+            <td><strong>Answer</strong></td>
+            <td id="answer" class="special">No question is selected.</td>
+        </tr>
+        <tr>
+            <td><strong>Who got it?</strong></td>
+            <td id="who" class="special">
+                <table>
+                    {% for pig in game.playeringame_set.all %}
+                        <tr>
+                            <td>{{ pig.player.username }}</td>
+                            <td><button type="button" style="border: 0; background: transparent;">
+                                <img src="{{ STATIC_URL }}images/green_light.png"/>
+                            </button></td>
+                            <td><button type="button" style="border: 0; background: transparent;">
+                                <img src="{{ STATIC_URL }}images/red_light.png"/>
+                            </button></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+    </table>
+    <button type="button">Cancel</button>
+    <button type="button">Nobody got it</button>
+</div>
 {% endblock %}

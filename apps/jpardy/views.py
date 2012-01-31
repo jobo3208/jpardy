@@ -154,11 +154,12 @@ def play(request, game_id):
     if request.user != game.owner:
         return error(request, "You do not own this game.")
 
-    data = game.get_json_data()
+    json_data = game.get_json_data()
 
     return render(request,
                   'play.html',
-                  {'data': data})
+                  {'data': json_data,
+                   'game': game})
 
 def error(request, message):
     return render(request,
