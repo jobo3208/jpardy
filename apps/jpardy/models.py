@@ -60,10 +60,14 @@ class Game(models.Model):
             data['questions'][qig.pk]['value'] = qig.question.value
             data['questions'][qig.pk]['daily_double'] = qig.daily_double
             data['questions'][qig.pk]['category'] = qig.category_in_game.pk
+            data['questions'][qig.pk]['asked'] = qig.asked
 
-            data['questions'][qig.pk]['result'] = {}
-            for qigr in QuestionInGameResult.objects.filter(question_in_game=qig):
-                data['questions'][qig.pk]['result'][qigr.player.pk] = qigr.score_change
+            if len(QuestionInGameResult.objects.filter(question_in_game=qig)) == 0:
+                data['questions'][qig.pk]['result'] = None
+            else:
+                data['questions'][qig.pk]['result'] = {}
+                for qigr in QuestionInGameResult.objects.filter(question_in_game=qig):
+                    data['questions'][qig.pk]['result'][qigr.player.pk] = qigr.score_change
 
         return simplejson.dumps(data)
 
@@ -97,6 +101,7 @@ class QuestionInGame(models.Model):
     category_in_game = models.ForeignKey('CategoryInGame')
     question = models.ForeignKey(Question)
     daily_double = models.BooleanField(default=False)
+    asked = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('category_in_game', 'question')
