@@ -129,9 +129,9 @@ body {
 #question_area {
     position: relative;
     border: 1px solid black;
-    z-index: 2000;
     background: #ffeaea;
     text-align: center;
+    padding: 0 0 5px 0;
 }
 
 #question_area table {
@@ -152,6 +152,58 @@ body {
 
 #question_area h3 span {
     color: #cc3300;
+}
+
+#question_area table #who table {
+    margin: 0;
+}
+
+#question_area table #who table td {
+    vertical-align: middle;
+    padding: 0;
+}
+
+.correct_button {
+    border: 0;
+    background: url(../images/green_light_sprites.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.correct_button:hover {
+    background-position: 0px -16px;
+}
+
+.incorrect_button {
+    border: 0;
+    background: url(../images/red_light_sprites.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.incorrect_button:hover {
+    background-position: 0px -16px;
+}
+
+.disabled_button {
+    border: 0;
+    background: url(../images/gray_light.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
 }
 
 .errors {

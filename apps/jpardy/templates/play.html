@@ -4,30 +4,16 @@
 
 {% block content %}
 <script src="{{ STATIC_URL }}js/jquery-1.7.1.js" type="text/javascript"></script>
-<script src="{{ STATIC_URL }}js/popup.js" type="text/javascript"></script>
 <script type="text/javascript">
 game = jQuery.parseJSON('{{ data|escapejs }}');
-
-$(document).ready(function(){
-    $('#question_area').hide();
-});
-
-displayQuestion = function(question) {
-    category_id = question.category;
-    category_name = game.categories[category_id].name;
-    $('#question_area #header_category').html(category_name);
-    $('#question_area #header_value').html(question.value);
-    $('#question_area #question').html(question.question);
-    $('#question_area #answer').html(question.answer);
-    $('#question_area').show('slow');
-};
 </script>
+<script src="{{ STATIC_URL }}js/jpardy.js" type="text/javascript"></script>
 <h2 class="underline">jpardy</h2>
 <table id="score_board">
     <tr>
         {% for pig in game.playeringame_set.all %}
             <td>{{ pig.player.username }}</td>
-            <td class="score">{{ pig.score }}</td>
+            <td id="score{{ pig.pk }}" class="score">{{ pig.score }}</td>
         {% endfor %}
     </tr>
 </table>
@@ -55,23 +41,22 @@ displayQuestion = function(question) {
         <tr>
             <td><strong>Who got it?</strong></td>
             <td id="who" class="special">
-                <table>
+                {% comment %}
+                <table id="players">
                     {% for pig in game.playeringame_set.all %}
                         <tr>
                             <td>{{ pig.player.username }}</td>
-                            <td><button type="button" style="border: 0; background: transparent;">
-                                <img src="{{ STATIC_URL }}images/green_light.png"/>
-                            </button></td>
-                            <td><button type="button" style="border: 0; background: transparent;">
-                                <img src="{{ STATIC_URL }}images/red_light.png"/>
-                            </button></td>
+                            <td><button id="correct_button_{{ pig.pk }}" type="button" class="correct_button"></button></td>
+                            <td><button id="incorrect_button_{{ pig.pk }}" type="button" class="incorrect_button"></button></td>
+                            <td></td>
                         </tr>
                     {% endfor %}
                 </table>
+                {% endcomment %}
             </td>
         </tr>
     </table>
-    <button type="button">Cancel</button>
-    <button type="button">Nobody got it</button>
+    <button type="button" onclick="hideQuestion();">Cancel</button>
+    <button type="button" onclick="nobodyGotIt(currentQuestion);">Nobody got it</button>
 </div>
 {% endblock %}
