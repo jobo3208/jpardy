@@ -177,6 +177,22 @@ body {
     padding: 0;
 }
 
+#already_asked_area {
+    position: relative;
+    border: 1px solid black;
+    background: #ffeaea;
+    text-align: center;
+    padding: 0 0 5px 0;
+}
+
+#already_asked_area h3 span {
+    color: #cc3300;
+}
+
+#already_asked_area ul {
+    list-style-type: none;
+}
+
 .correct_button {
     border: 0;
     background: url(../images/green_light_sprites.png);

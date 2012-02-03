@@ -23,8 +23,7 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
             <td>{{ cig.category.name }}</td>
             {% for qig in cig.questioningame_set.all %}
             <td><a class="board_question" 
-                   onclick="displayQuestion(this, game.questions[{{ qig.pk }}]);">{{ qig.question.value }}
-                </a>
+                   onclick="selectQuestion(this, {{ qig.pk }});">{{ qig.question.value }}</a>
             </td>
             {% endfor %}
         </tr>
@@ -57,7 +56,14 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
             </td>
         </tr>
     </table>
-    <button type="button" onclick="hideQuestion();">Cancel</button>
-    <button type="button" onclick="nobodyGotIt(currentQuestion);">Nobody got it</button>
+    <button type="button" onclick="cancelCurrentQuestion();">Cancel</button>
+    <button type="button" onclick="nobodyGotIt();">Nobody got it</button>
+</div>
+<div id="already_asked_area" style="width: 100%;">
+    <h3><span id="header_category">No category</span> for <span id="header_value">no value</span></h3>
+    <p>You already asked this question! Here's what happened:</p>
+    <ul></ul>
+    <button type="button" onclick="cancelAlreadyAskedQuestion();">Cancel</button>
+    <button type="button" onclick="">Redo</button>
 </div>
 {% endblock %}
