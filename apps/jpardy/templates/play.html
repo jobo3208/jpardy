@@ -22,7 +22,10 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
         <tr>
             <td>{{ cig.category.name }}</td>
             {% for qig in cig.questioningame_set.all %}
-            <td><a style="text-decoration: underline;" onclick="displayQuestion(game.questions[{{ qig.pk }}]);">{{ qig.question.value }}</a></td>
+            <td><a class="board_question" 
+                   onclick="displayQuestion(this, game.questions[{{ qig.pk }}]);">{{ qig.question.value }}
+                </a>
+            </td>
             {% endfor %}
         </tr>
     {% endfor %}
@@ -40,19 +43,17 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
         </tr>
         <tr>
             <td><strong>Who got it?</strong></td>
-            <td id="who" class="special">
-                {% comment %}
-                <table id="players">
+            <td class="special">
+                <table id="answer_area">
                     {% for pig in game.playeringame_set.all %}
                         <tr>
-                            <td>{{ pig.player.username }}</td>
-                            <td><button id="correct_button_{{ pig.pk }}" type="button" class="correct_button"></button></td>
-                            <td><button id="incorrect_button_{{ pig.pk }}" type="button" class="incorrect_button"></button></td>
+                            <td style="width: 30%;">{{ pig.player.username }}</td>
+                            <td style="width: 20px;"><button onclick="correct(this, {{ pig.pk }});" class="correct_button" /></td>
+                            <td style="width: 20px;"><button onclick="incorrect(this, {{ pig.pk }});" class="incorrect_button" /></td>
                             <td></td>
                         </tr>
                     {% endfor %}
                 </table>
-                {% endcomment %}
             </td>
         </tr>
     </table>

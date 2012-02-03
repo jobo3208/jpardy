@@ -108,6 +108,18 @@ body {
     text-align: center;
 }
 
+#game_board a.board_question {
+    text-decoration: underline;
+    color: #000;
+    cursor: pointer;
+}
+
+#game_board a.asked_question {
+    text-decoration: line-through;
+    color: #777;
+    cursor: pointer;
+}
+
 #score_board {
     width: 100%;
     margin: 10px auto;
@@ -154,11 +166,13 @@ body {
     color: #cc3300;
 }
 
-#question_area table #who table {
+#question_area #answer_area {
+    text-align: left;
     margin: 0;
+    width: 100%;
 }
 
-#question_area table #who table td {
+#answer_area td {
     vertical-align: middle;
     padding: 0;
 }
