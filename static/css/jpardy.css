@@ -193,6 +193,16 @@ body {
     list-style-type: none;
 }
 
+#already_asked_area span.right {
+    font-weight: bold;
+    color: green;
+}
+
+#already_asked_area span.wrong {
+    font-weight: bold;
+    color: red;
+}
+
 .correct_button {
     border: 0;
     background: url(../images/green_light_sprites.png);

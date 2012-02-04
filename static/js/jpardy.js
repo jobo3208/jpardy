@@ -1,6 +1,6 @@
-currentQuestion = null;
-currentQuestionSource = null;
-currentQuestionNewResult = {};
+var currentQuestion = null;
+var currentQuestionSource = null;
+var currentQuestionNewResult = {};
 
 selectQuestion = function(source, question_pk) {
     currentQuestion = game.questions[question_pk];
@@ -18,8 +18,8 @@ displayCurrentQuestion = function() {
     resetAnswerArea();
     hideAlreadyAskedQuestion();
 
-    category_id = currentQuestion.category;
-    category_name = game.categories[category_id].name;
+    var category_id = currentQuestion.category;
+    var category_name = game.categories[category_id].name;
     $('#question_area #header_category').html(category_name);
     $('#question_area #header_value').html(currentQuestion.value);
     $('#question_area #question').html(currentQuestion.question);
@@ -28,14 +28,16 @@ displayCurrentQuestion = function() {
 };
 
 displayAlreadyAskedQuestion = function() {
-    category_id = currentQuestion.category;
-    category_name = game.categories[category_id].name;
+    hideCurrentQuestion();
+
+    var category_id = currentQuestion.category;
+    var category_name = game.categories[category_id].name;
     $('#already_asked_area #header_category').html(category_name);
     $('#already_asked_area #header_value').html(currentQuestion.value);
     $('#already_asked_area ul').html('');
 
     var summary = getCurrentQuestionLastResultSummary();
-    for (i in summary) {
+    for (var i in summary) {
         $('#already_asked_area ul').append('<li>' + summary[i] + '</li>');
     }
 
@@ -106,6 +108,11 @@ cancelAlreadyAskedQuestion = function() {
     resetCurrentQuestion();
 };
 
+redoAlreadyAskedQuestion = function() {
+    undoCurrentQuestionLastResult();
+    displayCurrentQuestion();
+};
+
 nobodyGotIt = function() {
     finishCurrentQuestion();
 };
@@ -128,28 +135,38 @@ markCurrentQuestionAsAsked = function() {
 };
 
 processCurrentQuestionResults = function() {
-    for (player_pk in currentQuestionNewResult) {
+    for (var player_pk in currentQuestionNewResult) {
         adjustScore(player_pk, currentQuestionNewResult[player_pk]);
     }
 };
 
 undoCurrentQuestionLastResult = function() {
-    for (player_pk in currentQuestion.result) {
+    for (var player_pk in currentQuestion.result) {
         adjustScore(player_pk, -currentQuestion.result[player_pk]);
     }
 };
 
 getCurrentQuestionLastResultSummary = function() {
     var results = [];
-    for (player_pk in currentQuestion.result) {
-        var name = game.players[player_pk].username;
+    var someoneGotIt = false;
+
+    for (var player_pk in currentQuestion.result) {
+        var name = '<strong>' + game.players[player_pk].username + '</strong>';
         var score_change = currentQuestion.result[player_pk];
+        if (score_change > 0) {
+            someoneGotIt = true;
+        }
+
         var str = name + ' got the question ';
-        str += ((score_change > 0) ? 'right' : 'wrong') + ' and ';
+        str += ((score_change > 0) ? '<span class="right">right</span>' : '<span class="wrong">wrong</span>') + ' and ';
         str += ((score_change > 0) ? 'won' : 'lost') + ' ';
         str += ((score_change > 0) ? score_change : -score_change) + ' points.';
 
         results.push(str);
+    }
+
+    if (!someoneGotIt) {
+        results.push('No one answered correctly.');
     }
 
     return results;
