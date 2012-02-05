@@ -161,6 +161,20 @@ def play(request, game_id):
                   {'data': json_data,
                    'game': game})
 
+@login_required
+def update_game(request, game_id):
+    if not request.is_ajax():
+        return error(request, "This URL is not meant to be accessed directly.")
+
+    if not request.method == 'POST':
+        return error(request, "This URL must be POSTed to.")
+
+    d = {}
+    d['1'] = 'bob'
+    d['2'] = 'shank'
+
+    return HttpResponse(simplejson.dumps(d), mimetype="text/json")
+
 def error(request, message):
     return render(request,
                   "error.html",

@@ -203,6 +203,17 @@ body {
     color: red;
 }
 
+#ajax_status {
+    position: absolute;
+    right: 0;
+    bottom: 40px;
+    width: 100px;
+    height: 1.5em;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
 .correct_button {
     border: 0;
     background: url(../images/green_light_sprites.png);

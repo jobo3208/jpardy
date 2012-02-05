@@ -122,6 +122,14 @@ finishCurrentQuestion = function() {
     currentQuestion.result = currentQuestionNewResult;
     markCurrentQuestionAsAsked();
     hideCurrentQuestion();
+
+    $.post('/update_game/' + game.pk + '/', 
+            currentQuestion,
+            function(data) {
+                $('#ajax_status').html('success').fadeIn().delay(800).fadeOut();
+            },
+            'json');
+
     resetCurrentQuestion();
 };
 
@@ -184,10 +192,11 @@ adjustScore = function(player_pk, diff) {
 };
 
 displayScore = function(player_pk, score) {
-    $('#score_board #score' + player_pk).html(score).fadeOut().fadeIn();
+    $('#score_board #score' + player_pk).fadeOut().html(score).fadeIn();
 };
 
 $(document).ready(function(){
     $('#question_area').hide();
     $('#already_asked_area').hide();
+    $('#ajax_status').hide();
 });
