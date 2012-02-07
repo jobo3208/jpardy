@@ -122,15 +122,23 @@ finishCurrentQuestion = function() {
     currentQuestion.result = currentQuestionNewResult;
     markCurrentQuestionAsAsked();
     hideCurrentQuestion();
-
-    $.post('/update_game/' + game.pk + '/', 
-            currentQuestion,
-            function(data) {
-                $('#ajax_status').html('success').fadeIn().delay(800).fadeOut();
-            },
-            'json');
-
+    sendCurrentQuestionToServer();
     resetCurrentQuestion();
+};
+
+sendCurrentQuestionToServer = function() {
+    $.ajax({
+        url: '/update_game/' + game.pk + '/',
+        type: 'POST',
+        data: $.toJSON(currentQuestion),
+        error: function() {
+            $('#ajax_status').html('failure!').fadeIn().delay(800).fadeOut();
+        },
+        success: function(data) {
+            $('#ajax_status').html('success').fadeIn().delay(800).fadeOut();
+        },
+        dataType: 'json'
+    });
 };
 
 addResultToCurrentQuestion = function(player_pk, score_change) {

@@ -55,6 +55,7 @@ class Game(models.Model):
         data['questions'] = {}
         for qig in QuestionInGame.objects.filter(category_in_game__game=self):
             data['questions'][qig.pk] = {}
+            data['questions'][qig.pk]['pk'] = qig.pk
             data['questions'][qig.pk]['question'] = qig.question.question
             data['questions'][qig.pk]['answer'] = qig.question.answer
             data['questions'][qig.pk]['value'] = qig.question.value
@@ -71,10 +72,33 @@ class Game(models.Model):
 
         return simplejson.dumps(data)
 
+    def load_json_data(self, json_string):
+        data = simplejson.loads(json_string)
+        
+        qig = QuestionInGame.objects.get(pk=data['pk'])
+        qig.asked = True
+        qig.save()
+
+        for k, v in data['result'].items():
+            qigr, created = QuestionInGameResult.objects.get_or_create(
+                question_in_game=qig,
+                player=PlayerInGame.objects.get(pk=k))
+
+            # Undo the last score if we are updating.
+            if not created:
+                qigr.player.score -= qigr.score_change
+
+            qigr.score_change = v
+            qigr.player.score += v
+            qigr.save()
+            qigr.player.save()
+
+
 class PlayerInGame(models.Model):
     game = models.ForeignKey(Game)
     player = models.ForeignKey(User)
     score = models.SmallIntegerField(default=0)
+
 
 class Question(models.Model):
     question = models.TextField(max_length=200, blank=True)

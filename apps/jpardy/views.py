@@ -169,10 +169,12 @@ def update_game(request, game_id):
     if not request.method == 'POST':
         return error(request, "This URL must be POSTed to.")
 
-    d = {}
-    d['1'] = 'bob'
-    d['2'] = 'shank'
+    game = get_object_or_404(Game, id=game_id)
 
+    game.load_json_data(request.raw_post_data)
+
+    d = {}
+    d['result'] = 'success'
     return HttpResponse(simplejson.dumps(d), mimetype="text/json")
 
 def error(request, message):
