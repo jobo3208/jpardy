@@ -1,5 +1,8 @@
 # Django settings for jpardy project.
 
+# Import private settings.
+from settings_private import *
+
 # Set up directories.
 from os import path
 PROJECT_ROOT = path.dirname(path.abspath(__file__))
