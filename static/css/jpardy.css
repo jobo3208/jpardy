@@ -138,12 +138,34 @@ body {
     width: 50px;
 }
 
-#question_area {
+.game_area {
     position: relative;
     border: 1px solid black;
     background: #ffeaea;
     text-align: center;
     padding: 0 0 5px 0;
+    width: 100%;
+}
+
+.game_area a {
+    text-decoration: underline;
+    color: #000;
+    cursor: pointer;
+}
+
+.game_area ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.game_area li {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.game_area h3 span {
+    color: #cc3300;
 }
 
 #question_area table {
@@ -162,10 +184,6 @@ body {
     background: #fff;
 }
 
-#question_area h3 span {
-    color: #cc3300;
-}
-
 #question_area #answer_area {
     text-align: left;
     margin: 0;
@@ -175,22 +193,6 @@ body {
 #answer_area td {
     vertical-align: middle;
     padding: 0;
-}
-
-#already_asked_area {
-    position: relative;
-    border: 1px solid black;
-    background: #ffeaea;
-    text-align: center;
-    padding: 0 0 5px 0;
-}
-
-#already_asked_area h3 span {
-    color: #cc3300;
-}
-
-#already_asked_area ul {
-    list-style-type: none;
 }
 
 #already_asked_area span.right {

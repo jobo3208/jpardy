@@ -2,6 +2,9 @@ var currentQuestion = null;
 var currentQuestionSource = null;
 var currentQuestionNewResult = {};
 
+var currentDailyDoublePlayer = -1;
+var currentDailyDoubleWager = -1;
+
 selectQuestion = function(source, question_pk) {
     currentQuestion = game.questions[question_pk];
     currentQuestionSource = source;
@@ -16,19 +19,29 @@ selectQuestion = function(source, question_pk) {
 
 displayCurrentQuestion = function() {
     resetAnswerArea();
-    hideAlreadyAskedQuestion();
+//    hideAlreadyAskedQuestion();
+    hideAllFast();
 
     var category_id = currentQuestion.category;
     var category_name = game.categories[category_id].name;
-    $('#question_area #header_category').html(category_name);
-    $('#question_area #header_value').html(currentQuestion.value);
-    $('#question_area #question').html(currentQuestion.question);
-    $('#question_area #answer').html(currentQuestion.answer);
-    $('#question_area').show('slow');
+
+    if (currentQuestion.daily_double) {
+        $('#dd_area #header_category').html(category_name);
+        $('#dd_area #header_value').html(currentQuestion.value);
+        $('#dd_area').show('slow');
+    }
+    else {
+        $('#question_area #header_category').html(category_name);
+        $('#question_area #header_value').html(currentQuestion.value);
+        $('#question_area #question').html(currentQuestion.question);
+        $('#question_area #answer').html(currentQuestion.answer);
+        $('#question_area').show('slow');
+    }
 };
 
 displayAlreadyAskedQuestion = function() {
-    hideCurrentQuestion();
+//    hideCurrentQuestion();
+    hideAllFast();
 
     var category_id = currentQuestion.category;
     var category_name = game.categories[category_id].name;
@@ -67,6 +80,12 @@ hideCurrentQuestion = function() {
 
 hideAlreadyAskedQuestion = function() {
     $('#already_asked_area').hide('slow');
+};
+
+hideAllFast = function() {
+    $('#question_area').hide();
+    $('#already_asked_area').hide();
+    $('#dd_area').hide();
 };
 
 correct = function(source, player_pk) {
@@ -110,6 +129,9 @@ cancelAlreadyAskedQuestion = function() {
 
 redoAlreadyAskedQuestion = function() {
     undoCurrentQuestionLastResult();
+    markCurrentQuestionAsUnasked();
+    currentQuestion.result = {};
+    sendCurrentQuestionToServer();
     displayCurrentQuestion();
 };
 
@@ -148,6 +170,11 @@ addResultToCurrentQuestion = function(player_pk, score_change) {
 markCurrentQuestionAsAsked = function() {
     currentQuestion.asked = true;
     $(currentQuestionSource).removeClass().addClass('asked_question');
+};
+
+markCurrentQuestionAsUnasked = function() {
+    currentQuestion.asked = false;
+    $(currentQuestionSource).removeClass().addClass('board_question');
 };
 
 processCurrentQuestionResults = function() {
@@ -203,8 +230,33 @@ displayScore = function(player_pk, score) {
     $('#score_board #score' + player_pk).fadeOut().html(score).fadeIn();
 };
 
+selectDailyDoublePlayer = function(player_pk) {
+    currentDailyDoublePlayer = player_pk;
+    $('#dd_area #player_select').hide();
+    $('#dd_area #wager_select #chosen_player').html(game.players[player_pk].username);
+    $('#dd_area #wager_select').show();
+};
+
+selectDailyDoubleWager = function(wager) {
+    if (isNaN(parseInt(wager))) {
+        $('#wager_select p.errors').html('That is not a valid wager.');        
+    }
+    else {
+        var curScore = game.players[currentDailyDoublePlayer].score;
+        var maxWager = (curScore > 500) ? curScore : 500;
+        if (wager > maxWager) {
+            $('#wager_select p.errors').html("You can't wager that much.");
+        }
+        else {
+            $('#wager_select p.errors').html("nice");
+        }
+    }
+};
+
 $(document).ready(function(){
     $('#question_area').hide();
     $('#already_asked_area').hide();
+    $('#dd_area').hide();
+    $('#dd_area #wager_select').hide();
     $('#ajax_status').hide();
 });

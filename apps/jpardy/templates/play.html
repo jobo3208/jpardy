@@ -31,7 +31,7 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
         </tr>
     {% endfor %}
 </table>
-<div id="question_area" style="width: 100%;">
+<div id="question_area" class="game_area">
     <h3><span id="header_category">No category</span> for <span id="header_value">no value</span></h3>
     <table>
         <tr>
@@ -61,12 +61,30 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
     <button type="button" onclick="cancelCurrentQuestion();">Cancel</button>
     <button type="button" onclick="nobodyGotIt();">Nobody got it</button>
 </div>
-<div id="already_asked_area" style="width: 100%;">
+<div id="already_asked_area" class="game_area"> 
     <h3><span id="header_category">No category</span> for <span id="header_value">no value</span></h3>
     <p>You already asked this question! Here's what happened:</p>
     <ul></ul>
     <button type="button" onclick="cancelAlreadyAskedQuestion();">Cancel</button>
     <button type="button" onclick="redoAlreadyAskedQuestion();">Redo</button>
+</div>
+<div id="dd_area" class="game_area">
+    <h3><span id="header_category">No category</span> for <span id="header_value">no value</span></h3>
+    <h4>Daily Double!</h4>
+    <div id="player_select">
+        <p>Select the player who chose this question.</p>
+        <ul>
+            {% for pig in game.playeringame_set.all %}
+                <li><a onclick="selectDailyDoublePlayer({{ pig.pk }});">{{ pig.player.username }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="wager_select">
+        <p>Enter wager below:</p>
+        <p class="errors"></p>
+        <input id="wager_input" type="text"/>
+        <button type="button" onclick="selectDailyDoubleWager($('#wager_input').val());">Submit Wager</button>
+    </div>
 </div>
 <div id="ajax_status"></div>
 {% endblock %}

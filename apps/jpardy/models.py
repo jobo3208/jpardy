@@ -76,17 +76,27 @@ class Game(models.Model):
         data = simplejson.loads(json_string)
         
         qig = QuestionInGame.objects.get(pk=data['pk'])
-        qig.asked = True
+        qig.asked = data['asked']
         qig.save()
 
+        for qigr in QuestionInGameResult.objects.filter(question_in_game=qig):
+            if qigr.player.pk in data['result']:
+                qigr.player.score -= qigr.score_change
+                qigr.score_change = data['result'][qigr.player.pk]
+                qigr.player.score += qigr.score_change
+                qigr.save()
+                qigr.player.save()
+
+                del data['result'][qigr.player.pk]
+            else:
+                qigr.player.score -= qigr.score_change
+                qigr.player.save()
+                qigr.delete()
+
         for k, v in data['result'].items():
-            qigr, created = QuestionInGameResult.objects.get_or_create(
+            qigr = QuestionInGameResult.objects.create(
                 question_in_game=qig,
                 player=PlayerInGame.objects.get(pk=k))
-
-            # Undo the last score if we are updating.
-            if not created:
-                qigr.player.score -= qigr.score_change
 
             qigr.score_change = v
             qigr.player.score += v
