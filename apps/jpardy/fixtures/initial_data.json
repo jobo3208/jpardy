@@ -18,6 +18,15 @@
     }
   }, 
   {
+    "pk": 4, 
+    "model": "jpardy.category", 
+    "fields": {
+      "owner": 1, 
+      "name": "Alicia Keys (Misc.)", 
+      "played": false
+    }
+  },
+  {
     "pk": 3, 
     "model": "jpardy.question", 
     "fields": {
@@ -114,6 +123,56 @@
       "answer": "Zach Galifianakis", 
       "category": 3, 
       "question": "In \"The Hangover\", this actor plays a character who's first name is Tim's last.", 
+      "value": 500
+    }
+  },
+  {
+    "pk": 17, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Top", 
+      "category": 4, 
+      "question": "Top or bottom? Elaine likes this part of the muffin best.", 
+      "value": 100
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "A Minor", 
+      "category": 4, 
+      "question": "Alicia Keys's debut album claimed to consist of tunes in this key.", 
+      "value": 200
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Happy Cola", 
+      "category": 4, 
+      "question": "Haribo makes gummy Coke bottles under this name.", 
+      "value": 300
+    }
+  }, 
+  {
+    "pk": 20, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Surfboard", 
+      "category": 4, 
+      "question": "Motorola's cable modem.", 
+      "value": 400
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "jpardy.question", 
+    "fields": {
+      "answer": "Self-Reliance", 
+      "category": 4, 
+      "question": "Emerson's famous essay on individualism, nonconformity, and being an opinionated prick.", 
       "value": 500
     }
   }
