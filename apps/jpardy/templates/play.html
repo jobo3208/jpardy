@@ -47,7 +47,7 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
             <td class="special">
                 <table id="answer_area">
                     {% for pig in game.playeringame_set.all %}
-                        <tr>
+                        <tr id="answer_row_{{ pig.pk }}">
                             <td style="width: 30%;">{{ pig.player.username }}</td>
                             <td style="width: 20px;"><button onclick="correct(this, {{ pig.pk }});" class="correct_button" /></td>
                             <td style="width: 20px;"><button onclick="incorrect(this, {{ pig.pk }});" class="incorrect_button" /></td>
@@ -59,13 +59,13 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
         </tr>
     </table>
     <button type="button" onclick="cancelCurrentQuestion();">Cancel</button>
-    <button type="button" onclick="nobodyGotIt();">Nobody got it</button>
+    <button id="nobody" type="button" onclick="nobodyGotIt();">Nobody got it</button>
 </div>
 <div id="already_asked_area" class="game_area"> 
     <h3><span id="header_category">No category</span> for <span id="header_value">no value</span></h3>
     <p>You already asked this question! Here's what happened:</p>
     <ul></ul>
-    <button type="button" onclick="cancelAlreadyAskedQuestion();">Cancel</button>
+    <button type="button" onclick="cancelCurrentQuestion();">Cancel</button>
     <button type="button" onclick="redoAlreadyAskedQuestion();">Redo</button>
 </div>
 <div id="dd_area" class="game_area">
@@ -78,10 +78,11 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
                 <li><a onclick="selectDailyDoublePlayer({{ pig.pk }});">{{ pig.player.username }}</a></li>
             {% endfor %}
         </ul>
+        <button type="button" onclick="cancelCurrentQuestion();">Cancel</button>
     </div>
     <div id="wager_select">
         <p>Enter wager below:</p>
-        <p class="errors"></p>
+        <p class="errors" style="text-align: center"></p>
         <input id="wager_input" type="text"/>
         <button type="button" onclick="selectDailyDoubleWager($('#wager_input').val());">Submit Wager</button>
     </div>
