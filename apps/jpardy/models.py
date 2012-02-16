@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.db import IntegrityError
 from django.utils import simplejson
+from django.template.defaultfilters import truncatewords
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -70,6 +71,12 @@ class Game(models.Model):
                 data['questions'][qig.pk]['result'] = {}
                 for qigr in QuestionInGameResult.objects.filter(question_in_game=qig):
                     data['questions'][qig.pk]['result'][qigr.player.pk] = qigr.score_change
+
+        data['final_question'] = {}
+        data['final_question']['pk'] = self.final_question.pk
+        data['final_question']['question'] = self.final_question.question
+        data['final_question']['answer'] = self.final_question.answer
+        data['final_question']['category'] = self.final_question.category
 
         return simplejson.dumps(data)
 
@@ -139,7 +146,7 @@ class FinalQuestion(models.Model):
     category = models.CharField(max_length=50)
 
     def __unicode__(self):
-        return self.question
+        return truncatewords(self.question, 5)
 
 
 class QuestionInGame(models.Model):

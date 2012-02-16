@@ -45,6 +45,7 @@
         <form action="" method="post">
             {% csrf_token %}
             <p>{{ category_form.name.label_tag }}: {{ category_form.name }}</p>
+            <input type="hidden" name="which_form" value="category"/>
             <input type="submit" value="Create"/>
         </form>
     </div>
@@ -57,7 +58,7 @@
             {% for fq in final_questions %}
                 <tr>
                 <td>{{ fq.category }}</td>
-                <td>{{ fq.question }}</td>
+                <td>{{ fq.question|truncatewords:5 }}</td>
                 <td><a href="/edit_fq/{{ fq.id }}/">edit</a></td>
                 <td><a href="/delete_fq/{{ fq.id }}/">delete</a></td>
                 </tr>
@@ -79,9 +80,12 @@
     <div style="text-align: center;">
         <form action="" method="post">
             {% csrf_token %}
-            <p>{{ fq_form.category.label_tag }}: {{ fq_form.category }}</p>
-            <p>{{ fq_form.question.label_tag }}: {{ fq_form.question }}</p>
-            <p>{{ fq_form.answer.label_tag }}: {{ fq_form.answer }}</p>
+            <table style="text-align: left; margin: 0 auto;">
+            <tr><td>{{ fq_form.category.label_tag }}: </td><td>{{ fq_form.category }}</td></tr>
+            <tr><td>{{ fq_form.question.label_tag }}: </td><td>{{ fq_form.question }}</td></tr>
+            <tr><td>{{ fq_form.answer.label_tag }}: </td><td>{{ fq_form.answer }}</td></tr>
+            </table>
+            <input type="hidden" name="which_form" value="fq"/>
             <input type="submit" value="Create"/>
         </form>
     </div>

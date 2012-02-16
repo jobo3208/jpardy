@@ -18,18 +18,39 @@ def home(request):
 @login_required
 def manage(request):
     if request.method == 'POST':
-        category_form = CategoryNameForm(request.POST)
+        if request.POST['which_form'] == 'category':
 
-        if category_form.is_valid():
-            new_category = category_form.save(commit=False)
-            new_category.owner = request.user
-            new_category.save()
+            category_form = CategoryNameForm(request.POST)
+            fq_form = FinalQuestionForm()
 
-            # Give a blank form if we succeeded.
+            if category_form.is_valid():
+                new_category = category_form.save(commit=False)
+                new_category.owner = request.user
+                new_category.save()
+
+                # Give a blank form if we succeeded.
+                category_form = CategoryNameForm()
+
+        elif request.POST['which_form'] == 'fq':
+            fq_form = FinalQuestionForm(request.POST)
             category_form = CategoryNameForm()
+
+            if fq_form.is_valid():
+                new_fq = fq_form.save(commit=False)
+                new_fq.owner = request.user
+                new_fq.save()
+
+                # Give a blank form if we succeeded.
+                fq_form = FinalQuestionForm()
+
+        else:
+            category_form = CategoryNameForm()
+            fq_form = FinalQuestionForm()
+
     else:
         category_form = CategoryNameForm()
         fq_form = FinalQuestionForm()
+
 
     categories = Category.objects.filter(owner=request.user)
     final_questions = FinalQuestion.objects.filter(owner=request.user)
@@ -52,7 +73,7 @@ def edit(request, category_id):
         form = CategoryNameForm(request.POST, instance=category)
         formset = CategoryFormSet(request.POST, instance=category)
 
-        if form.is_valid and formset.is_valid():
+        if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
 
@@ -69,6 +90,29 @@ def edit(request, category_id):
                    "category": category,})
 
 @login_required
+def edit_fq(request, fq_id):
+    fq = get_object_or_404(FinalQuestion, pk=fq_id)
+
+    if request.user != fq.owner:
+        return error(request, "You do not own this question.")
+
+    if request.method == 'POST':
+        form = FinalQuestionForm(request.POST, instance=fq)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect(manage)
+
+    else:
+        form = FinalQuestionForm(instance=fq)
+
+    return render(request,
+                  "edit_fq.html", 
+                  {"form": form,
+                   "fq": fq,})
+
+@login_required
 def delete(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
@@ -83,6 +127,22 @@ def delete(request, category_id):
     return render(request,
                   "confirm_delete.html", 
                   {"category": category,})
+
+@login_required
+def delete_fq(request, fq_id):
+    fq = get_object_or_404(FinalQuestion, pk=fq_id)
+
+    if request.user != fq.owner:
+        return error(request, "You do not own this question.")
+
+    if request.method == 'POST':
+        fq.delete()
+
+        return redirect(manage)
+
+    return render(request,
+                  "confirm_delete_fq.html", 
+                  {"fq": fq,})
 
 @login_required
 def games(request):
@@ -108,7 +168,8 @@ def create_game(request):
                                    fq_qs=fq_choices)
 
         if form.is_valid():
-            game = Game.objects.create(owner=request.user)
+            game = Game.objects.create(owner=request.user,
+                                       final_question=form.cleaned_data['final_question'])
             game.save()
 
             for player in form.cleaned_data['players']:
