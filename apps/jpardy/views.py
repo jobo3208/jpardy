@@ -29,13 +29,17 @@ def manage(request):
             category_form = CategoryNameForm()
     else:
         category_form = CategoryNameForm()
+        fq_form = FinalQuestionForm()
 
     categories = Category.objects.filter(owner=request.user)
+    final_questions = FinalQuestion.objects.filter(owner=request.user)
 
     return render(request,
                   'manage.html',
                   {'categories': categories,
-                   'category_form': category_form,})
+                   'category_form': category_form,
+                   'final_questions': final_questions,
+                   'fq_form': fq_form,})
 
 @login_required
 def edit(request, category_id):
@@ -96,9 +100,12 @@ def create_game(request):
                                     Category.objects.filter(owner=request.user) if
                                         cat.number_of_questions == 5]
     category_choices = Category.objects.filter(pk__in=category_choice_pks)
+    fq_choices = FinalQuestion.objects.filter(owner=request.user)
 
     if request.method == 'POST':
-        form = InitialGamePrepForm(request.POST, category_qs=category_choices)
+        form = InitialGamePrepForm(request.POST, 
+                                   category_qs=category_choices,
+                                   fq_qs=fq_choices)
 
         if form.is_valid():
             game = Game.objects.create(owner=request.user)
@@ -115,7 +122,7 @@ def create_game(request):
             return redirect(set_daily_doubles, game.id)
 
     else:
-        if len(category_choices) == 0:
+        if len(category_choices) == 0 or len(fq_choices) == 0:
             form = None
         else:
             form = InitialGamePrepForm(category_qs=category_choices)

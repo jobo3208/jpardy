@@ -34,6 +34,7 @@ class Game(models.Model):
     categories = models.ManyToManyField(Category, through='CategoryInGame')
     players = models.ManyToManyField(User, related_name='games_played', through='PlayerInGame')
     create_date = models.DateTimeField(auto_now_add=True)
+    final_question = models.ForeignKey('FinalQuestion')
 
     def get_json_data(self):
         data = {}
@@ -129,6 +130,16 @@ class Question(models.Model):
 
     class Meta:
         ordering = ['category__name', 'value']
+
+
+class FinalQuestion(models.Model):
+    owner = models.ForeignKey(User, editable=False)
+    question = models.TextField(max_length=200)
+    answer = models.CharField(max_length=50)
+    category = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.question
 
 
 class QuestionInGame(models.Model):

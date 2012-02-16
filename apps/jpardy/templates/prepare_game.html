@@ -8,6 +8,7 @@
     <p>First, select the players who will be taking part in this game.</p>
     <p>Next, select the categories you wish to play with. You can use as many 
     as you want, although 5 is the norm.</p>
+    <p>Finally, select a final jpardy question.</p>
     <p>Hold the <code>Ctrl</code> key on your keyboard to select multiple 
     players or categories.</p>
     {% if form.errors %}
@@ -29,7 +30,7 @@
                 <input type="submit" value="Create Game"/>
             </form>
         {% else %}
-            <p><strong>You don't have any categories yet!</strong></p>
+            <p><strong>You need at least one category and final question to proceed.</strong></p>
         {% endif %}
     </div>
 {% endblock %}

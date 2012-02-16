@@ -32,7 +32,7 @@
         <p>You have no categories.</p>
     {% endif %}
 
-    <h2 class="underline">Create New Category</h3>
+    <h3 class="underline">Create New Category</h3>
 
     {% if category_form.errors %}
         <div class="errors">
@@ -48,4 +48,42 @@
             <input type="submit" value="Create"/>
         </form>
     </div>
+
+    <h2 class="underline">My Final Questions</h2>
+
+    {% if final_questions %}
+        <table class="bordered_table">
+            <tr><th>Category</th><th>Question</th><th>Edit</th><th>Delete</th></tr>
+            {% for fq in final_questions %}
+                <tr>
+                <td>{{ fq.category }}</td>
+                <td>{{ fq.question }}</td>
+                <td><a href="/edit_fq/{{ fq.id }}/">edit</a></td>
+                <td><a href="/delete_fq/{{ fq.id }}/">delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>You have no final jpardy questions.</p>
+    {% endif %}
+
+    <h3 class="underline">Create New Final Question</h3>
+
+    {% if fq_form.errors %}
+        <div class="errors">
+            <p><strong>Errors were encountered while processing the form.</strong></p>
+            {% error_summary fq_form %}
+        </div>
+    {% endif %}
+
+    <div style="text-align: center;">
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>{{ fq_form.category.label_tag }}: {{ fq_form.category }}</p>
+            <p>{{ fq_form.question.label_tag }}: {{ fq_form.question }}</p>
+            <p>{{ fq_form.answer.label_tag }}: {{ fq_form.answer }}</p>
+            <input type="submit" value="Create"/>
+        </form>
+    </div>
+
 {% endblock %}

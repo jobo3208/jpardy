@@ -39,15 +39,26 @@ class CategoryNameForm(ModelForm):
         fields = ('name',)
 
 
+class FinalQuestionForm(ModelForm):
+
+    class Meta:
+        model = FinalQuestion
+        fields = ('category', 'question', 'answer',)
+
+
 class InitialGamePrepForm(forms.Form):
     """Form that handles player and category selection for a new game."""
 
     def __init__(self, *args, **kwargs):
         category_qs = kwargs.pop('category_qs', Category.objects.all())
+        fq_qs = kwargs.pop('fq_qs', FinalQuestion.objects.all())
         super(InitialGamePrepForm, self).__init__(*args, **kwargs)
         self.fields['categories'] = forms.ModelMultipleChoiceField(
                                             queryset=category_qs,
                                             label='Categories')
+        self.fields['final_question'] = forms.ModelChoiceField(
+                                            queryset=fq_qs,
+                                            label='Final Question')
 
     players = forms.ModelMultipleChoiceField(
                                             queryset=User.objects.all(), 
