@@ -87,5 +87,8 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
         <button type="button" onclick="selectDailyDoubleWager($('#wager_input').val());">Submit Wager</button>
     </div>
 </div>
+<div id="proceed_to_final_area" class="game_area">
+    <button style="margin: 10px auto" type="button" onclick="proceedToFinalJpardy()">Proceed to Final Jpardy</button>
+</div>
 <div id="ajax_status"></div>
 {% endblock %}

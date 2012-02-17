@@ -33,6 +33,7 @@ var hideAll = function(speed) {
     $('#question_area').hide(speed);
     $('#already_asked_area').hide(speed);
     $('#dd_area').hide(speed);
+    $('#proceed_to_final_area').hide(speed);
 };
 
 
@@ -188,6 +189,11 @@ var finishCurrentQuestion = function() {
     hideAll('slow');
     sendCurrentQuestionToServer();
     resetCurrentQuestion();
+
+    if (allQuestionsHaveBeenAsked()) {
+        hideAll();
+        $('#proceed_to_final_area').show('slow');
+    }
 };
 
 
@@ -315,10 +321,26 @@ var askDailyDoubleQuestion = function() {
 };
 
 
+var allQuestionsHaveBeenAsked = function() {
+    for (var i in game.questions) {
+        if (!game.questions[i].asked) {
+            return false;
+        }
+    }
+    return true;
+};
+
+
 $(document).ready(function(){
     $('#question_area').hide();
     $('#already_asked_area').hide();
     $('#dd_area').hide();
     $('#dd_area #wager_select').hide();
+    $('#proceed_to_final_area').hide();
     $('#ajax_status').hide();
+
+    if (allQuestionsHaveBeenAsked()) {
+        hideAll();
+        $('#proceed_to_final_area').show('slow');
+    }
 });
