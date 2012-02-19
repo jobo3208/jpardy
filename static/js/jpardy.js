@@ -5,6 +5,8 @@ var currentQuestionNewResult = {};
 var currentDailyDoublePlayer = -1;
 var currentDailyDoubleWager = -1;
 
+var finalJpardyPlayers = [];
+var finalJpardyWagers = {};
 
 var selectQuestion = function(source, question_pk) {
     currentQuestion = game.questions[question_pk];
@@ -34,6 +36,7 @@ var hideAll = function(speed) {
     $('#already_asked_area').hide(speed);
     $('#dd_area').hide(speed);
     $('#proceed_to_final_area').hide(speed);
+    $('#final_wager_area').hide(speed);
 };
 
 
@@ -331,13 +334,131 @@ var allQuestionsHaveBeenAsked = function() {
 };
 
 
+var proceedToFinalJpardy = function() {
+    hideAll();
+
+    for (var i in game.players) {
+        if (game.players[i].score <= 0) {
+            $('#final_wager_area #final_wager_' + i)
+                .attr('disabled', 'disabled')
+                .val("Sorry, not enough money.");
+        }
+        else {
+            finalJpardyPlayers.push(i);
+        }
+    }
+
+    $('#final_wager_area h4 span').html(game.final_question.category);
+    $('#shadow').show();
+    $('#final_wager_area').show();
+};
+
+
+var submitFinalWagers = function() {
+    $('#final_wager_area ul').html('');
+
+    var wagers = {};
+    var wagersOk = true;
+
+    for (var i in finalJpardyPlayers) {
+        var player_pk = finalJpardyPlayers[i];
+        var wager = parseInt($('#final_wager_area #final_wager_' + player_pk).val());
+        if (isNaN(wager)) {
+            $('#final_wager_area ul')
+                .append("<li>" + game.players[player_pk].username + "'s wager is invalid.</li>");
+            wagersOk = false;
+        }
+        else {
+            var curScore = game.players[player_pk].score;
+            if (wager > curScore) {
+                $('#final_wager_area ul')
+                    .append("<li>" + game.players[player_pk].username + "'s wager is too high.</li>");
+                wagersOk = false;
+            }
+            else if (wager < 0) {
+                $('#final_wager_area ul')
+                    .append("<li>" + game.players[player_pk].username + "'s wager cannot be negative.</li>");
+                wagersOk = false;
+            }
+            else {
+                wagers[player_pk] = wager;
+            }
+        }
+    }
+
+    if (wagersOk) {
+        finalJpardyWagers = wagers;        
+        displayFinalQuestion();
+    }
+};
+
+
+var displayFinalQuestion = function() {
+    hideAll();
+    resetAnswerRows();
+
+    $('#answer_area tr').hide();
+    for (var i in finalJpardyWagers) {
+        $('#answer_area #answer_row_' + i)
+            .find('.correct_button')
+                .attr('onclick', 'finalQuestionCorrect(this, ' + i + ')')
+            .end()
+            .find('.incorrect_button')
+                .attr('onclick', 'finalQuestionIncorrect(this, ' + i + ')')
+            .end()
+            .show();
+    }
+
+    var category_name = game.final_question.category;
+
+    $('#question_area #header_category').html(category_name);
+    $('#question_area #header_value').html('final jpardy');
+    $('#question_area #question').html(game.final_question.question);
+    $('#question_area #answer').html(game.final_question.answer);
+    $('#question_area button:not(.correct_button, .incorrect_button)').remove();
+    $('#question_area').show('slow');
+};
+
+
+var finalQuestionCorrect = function(source, player_pk) {
+    // Disable further button pushing and mark answer as correct.
+    $(source).closest('tr')
+        .find('button')
+            .attr('disabled', 'disabled')
+            .removeClass()
+            .addClass('disabled_button')
+        .end()
+        .find('td:last')
+            .text('correct');
+
+    adjustScore(player_pk, finalJpardyWagers[player_pk]);
+};
+
+
+var finalQuestionIncorrect = function(source, player_pk) {
+    // Disable further button pushing and mark answer as incorrect.
+    $(source).closest('tr')
+        .find('button')
+            .attr('disabled', 'disabled')
+            .removeClass()
+            .addClass('disabled_button')
+        .end()
+        .find('td:last')
+            .text('wrong');
+
+    adjustScore(player_pk, -finalJpardyWagers[player_pk]);
+};
+
+
 $(document).ready(function(){
     $('#question_area').hide();
     $('#already_asked_area').hide();
     $('#dd_area').hide();
     $('#dd_area #wager_select').hide();
     $('#proceed_to_final_area').hide();
+    $('#final_wager_area').hide();
     $('#ajax_status').hide();
+    $('#shadow').hide();
 
     if (allQuestionsHaveBeenAsked()) {
         hideAll();
