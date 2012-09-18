@@ -2,5 +2,3 @@
 
 `jpardy` is Jeopardy! Make your own categories and questions, then play games 
 with your friends.
-
-The "play games" part is still a work in progress.
