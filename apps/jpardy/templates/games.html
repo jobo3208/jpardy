@@ -10,7 +10,7 @@
             <tr><th>Game</th><th>Created</th></tr>
             {% for game in games %}
                 <tr>
-                <td>Game #{{ game.pk }}</td><td>{{ game.create_date }}</td>
+                  <td><a href="/play/{{ game.pk }}">Game #{{ game.pk }}</a></td><td>{{ game.create_date }}</td>
                 </tr>
             {% endfor %}
         </table>
