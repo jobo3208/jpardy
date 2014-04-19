@@ -222,6 +222,20 @@ def play(request, game_id):
     if request.user != game.owner:
         return error(request, "You do not own this game.")
 
+    if request.method == 'POST':
+        for pig_pk, score in request.POST.items():
+            if pig_pk == 'csrfmiddlewaretoken':
+                continue
+
+            pig = PlayerInGame.objects.get(pk=pig_pk)
+            pig.score = score
+            pig.save()
+
+        game.finish()
+
+        return redirect(games)
+        
+
     json_data = game.get_json_data()
 
     return render(request,

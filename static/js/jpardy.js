@@ -8,6 +8,9 @@ var currentDailyDoubleWager = -1;
 var finalJpardyPlayers = [];
 var finalJpardyWagers = {};
 
+var playersFinished = 0;
+
+
 var selectQuestion = function(source, question_pk) {
     currentQuestion = game.questions[question_pk];
     currentQuestionSource = source;
@@ -396,6 +399,7 @@ var submitFinalWagers = function() {
 var displayFinalQuestion = function() {
     hideAll();
     resetAnswerRows();
+    resetAnswerArea();
 
     $('#answer_area tr').hide();
     for (var i in finalJpardyWagers) {
@@ -432,6 +436,7 @@ var finalQuestionCorrect = function(source, player_pk) {
             .text('correct');
 
     adjustScore(player_pk, finalJpardyWagers[player_pk]);
+    playerFinished();
 };
 
 
@@ -447,6 +452,47 @@ var finalQuestionIncorrect = function(source, player_pk) {
             .text('wrong');
 
     adjustScore(player_pk, -finalJpardyWagers[player_pk]);
+    playerFinished();
+};
+
+
+var playerFinished = function() {
+    playersFinished++;
+
+    if (playersFinished === finalJpardyPlayers.length) {
+        displayGameEnd();
+    }
+};
+
+
+var displayGameEnd = function() {
+    hideAll();
+
+    var sortedPlayers = getPlayerArraySortedDescByScore();
+
+    for (var i in sortedPlayers) {
+        $('#game_end_area ul').append(
+            '<li><strong>' + sortedPlayers[i].username + '</strong> scored <strong>' + sortedPlayers[i].score + '</strong> points</li>');
+        $('#game_end_area form').prepend(
+            '<input type="hidden" name="' + sortedPlayers[i].pk + '" value="' + sortedPlayers[i].score + '"/>'
+        );
+    }
+
+    $('#game_end_area').show('slow');
+};
+
+
+var getPlayerArraySortedDescByScore = function() {
+    var players = [];
+    for (var i in game.players) {
+        players.push(game.players[i]);
+    }
+
+    players.sort(function(a, b) {
+        return b.score - a.score;
+    });
+
+    return players;
 };
 
 
@@ -457,6 +503,7 @@ $(document).ready(function(){
     $('#dd_area #wager_select').hide();
     $('#proceed_to_final_area').hide();
     $('#final_wager_area').hide();
+    $('#game_end_area').hide();
     $('#ajax_status').hide();
     $('#shadow').hide();
 

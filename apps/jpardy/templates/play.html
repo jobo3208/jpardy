@@ -106,5 +106,13 @@ game = jQuery.parseJSON('{{ data|escapejs }}');
     </table>
     <button type="button" onclick="submitFinalWagers()">Submit Wagers</button>
 </div>
+<div id="game_end_area" class="game_area">
+    <h3>Game Results</h3>
+    <ul></ul>
+    <form action="" method="POST">
+    {% csrf_token %}
+        <input type="submit" value="Finish Game"/>
+    </form>
+</div>
 <div id="ajax_status"></div>
 {% endblock %}

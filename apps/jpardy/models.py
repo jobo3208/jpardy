@@ -36,6 +36,7 @@ class Game(models.Model):
     players = models.ManyToManyField(User, related_name='games_played', through='PlayerInGame')
     create_date = models.DateTimeField(auto_now_add=True)
     final_question = models.ForeignKey('FinalQuestion')
+    finished = models.BooleanField(default=False, editable=False)
 
     def get_json_data(self):
         data = {}
@@ -44,6 +45,7 @@ class Game(models.Model):
         data['players'] = {}
         for pig in PlayerInGame.objects.filter(game=self):
             data['players'][pig.pk] = {}
+            data['players'][pig.pk]['pk'] = pig.pk
             data['players'][pig.pk]['username'] = pig.player.username
             data['players'][pig.pk]['first_name'] = pig.player.first_name
             data['players'][pig.pk]['last_name'] = pig.player.last_name
@@ -111,6 +113,15 @@ class Game(models.Model):
             qigr.save()
             qigr.player.save()
 
+    def finish(self):
+        self.finished = True
+
+        for category in self.categories.all():
+            category.played = True
+            category.save()
+
+        self.save()
+        
 
 class PlayerInGame(models.Model):
     game = models.ForeignKey(Game)
