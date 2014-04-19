@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load error_summary %}
+
+{% block title %}jpardy | edit final question{% endblock %}
+
+{% block content %}
+<h2 class="underline">Edit Final Question</h2>
+
+    {% if form.errors %}
+        <div class="errors">
+            <p><strong>Errors were encountered while processing the form.</strong></p>
+            {% error_summary form %}
+        </div>
+    {% endif %}
+
+    <form method="post" action="">
+        <table style="margin: 0 auto">
+            {% csrf_token %}
+            {% for field in form %}
+                <tr><td>{{ field.label_tag}}</td><td>{{ field }}</td></tr>
+            {% endfor %}
+            <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Save"></input></td></tr>
+        </table>
+    </form>
+{% endblock %}

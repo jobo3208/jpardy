@@ -94,6 +94,176 @@ body {
     text-align: center;
 }
 
+#game_board {
+    width: 100%;
+    margin: 10px auto;
+    background: #ffffff;
+    border: 1px solid black;
+    font-size: large;
+}
+
+#game_board td, #game_board th, #game_board tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#game_board a.board_question {
+    text-decoration: underline;
+    color: #000;
+    cursor: pointer;
+}
+
+#game_board a.asked_question {
+    text-decoration: line-through;
+    color: #777;
+    cursor: pointer;
+}
+
+#score_board {
+    width: 100%;
+    margin: 10px auto;
+    background: #ffffff;
+    border: 1px solid black;
+    font-size: small;
+}
+
+#score_board td, #score_board th, #score_board tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#score_board td.score {
+    width: 50px;
+}
+
+.game_area {
+    position: relative;
+    border: 1px solid black;
+    background: #ffeaea;
+    text-align: center;
+    padding: 0 0 5px 0;
+    width: 100%;
+    z-index: 20;
+}
+
+.game_area a {
+    text-decoration: underline;
+    color: #000;
+    cursor: pointer;
+}
+
+.game_area ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.game_area li {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.game_area h3 span {
+    color: #cc3300;
+}
+
+.game_area h4 span {
+    color: #cc3300;
+}
+
+#question_area table {
+    width: 50%;
+    margin: 5px auto;
+}
+
+#question_area table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 6px;
+}
+
+#question_area table td.special {
+    border: 1px solid #cc3300;
+    background: #fff;
+}
+
+#question_area #answer_area {
+    text-align: left;
+    margin: 0;
+    width: 100%;
+}
+
+#answer_area td {
+    vertical-align: middle;
+    padding: 0;
+}
+
+#already_asked_area span.right {
+    font-weight: bold;
+    color: green;
+}
+
+#already_asked_area span.wrong {
+    font-weight: bold;
+    color: red;
+}
+
+#ajax_status {
+    position: absolute;
+    right: 0;
+    bottom: 40px;
+    width: 100px;
+    height: 1.5em;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.correct_button {
+    border: 0;
+    background: url(../images/green_light_sprites.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.correct_button:hover {
+    background-position: 0px -16px;
+}
+
+.incorrect_button {
+    border: 0;
+    background: url(../images/red_light_sprites.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.incorrect_button:hover {
+    background-position: 0px -16px;
+}
+
+.disabled_button {
+    border: 0;
+    background: url(../images/gray_light.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+}
+
 .errors {
     text-align: left;
     color: #cc3300;
@@ -114,4 +284,15 @@ body {
   background-color: #777;
   color: white;
   font-size: 0.95em;
+}
+
+#shadow {
+    background: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .7;
+    z-index: 10;
 }

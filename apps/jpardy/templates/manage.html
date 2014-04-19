@@ -32,7 +32,7 @@
         <p>You have no categories.</p>
     {% endif %}
 
-    <h2 class="underline">Create New Category</h3>
+    <h3 class="underline">Create New Category</h3>
 
     {% if category_form.errors %}
         <div class="errors">
@@ -45,7 +45,49 @@
         <form action="" method="post">
             {% csrf_token %}
             <p>{{ category_form.name.label_tag }}: {{ category_form.name }}</p>
+            <input type="hidden" name="which_form" value="category"/>
             <input type="submit" value="Create"/>
         </form>
     </div>
+
+    <h2 class="underline">My Final Questions</h2>
+
+    {% if final_questions %}
+        <table class="bordered_table">
+            <tr><th>Category</th><th>Question</th><th>Edit</th><th>Delete</th></tr>
+            {% for fq in final_questions %}
+                <tr>
+                <td>{{ fq.category }}</td>
+                <td>{{ fq.question|truncatewords:5 }}</td>
+                <td><a href="/edit_fq/{{ fq.id }}/">edit</a></td>
+                <td><a href="/delete_fq/{{ fq.id }}/">delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>You have no final jpardy questions.</p>
+    {% endif %}
+
+    <h3 class="underline">Create New Final Question</h3>
+
+    {% if fq_form.errors %}
+        <div class="errors">
+            <p><strong>Errors were encountered while processing the form.</strong></p>
+            {% error_summary fq_form %}
+        </div>
+    {% endif %}
+
+    <div style="text-align: center;">
+        <form action="" method="post">
+            {% csrf_token %}
+            <table style="text-align: left; margin: 0 auto;">
+            <tr><td>{{ fq_form.category.label_tag }}: </td><td>{{ fq_form.category }}</td></tr>
+            <tr><td>{{ fq_form.question.label_tag }}: </td><td>{{ fq_form.question }}</td></tr>
+            <tr><td>{{ fq_form.answer.label_tag }}: </td><td>{{ fq_form.answer }}</td></tr>
+            </table>
+            <input type="hidden" name="which_form" value="fq"/>
+            <input type="submit" value="Create"/>
+        </form>
+    </div>
+
 {% endblock %}
