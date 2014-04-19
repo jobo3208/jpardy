@@ -1,4 +1,21 @@
 # jpardy
 
-`jpardy` is Jeopardy! Make your own categories and questions, then play games 
+`jpardy` is Jeopardy! Make your own categories and questions, then play games
 with your friends.
+
+This app is old and only about 95% done, but it should have the basics covered.
+
+## Instructions
+
+ 1. Clone
+ 2. Optionally create virtualenv and install requirements:
+
+        $ virtualenv env
+        $ . env/bin/activate
+        $ pip install -r REQUIREMENTS
+
+ 3. Create `settings_private.py` alongside `settings.py`. In it, place the
+    standard Django `SECRET_KEY` setting.
+ 4. Tweak settings as desired
+ 5. `./manage.py syncdb`
+ 6. `./manage.py runserver`
