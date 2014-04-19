@@ -11,8 +11,6 @@ SITE_ROOT = path.dirname(PROJECT_ROOT)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-MANAGERS = ADMINS
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
